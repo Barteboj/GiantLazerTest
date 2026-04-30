@@ -13,4 +13,6 @@ public class LibraryItem : ScriptableObject
     public Sprite Visualization { get; private set; }
     [field: SerializeField]
     public Port[] Ports { get; private set; }
+    [field: SerializeField]
+    public GameObject Prefab { get; private set; }
 }

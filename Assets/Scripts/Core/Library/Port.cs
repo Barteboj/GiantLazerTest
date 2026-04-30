@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Port", menuName = "Scriptable Objects/Port")]
-public class Port : ScriptableObject
+[Serializable]
+public class Port
 {
     [field: SerializeField]
     public PortType Type { get; private set; }
