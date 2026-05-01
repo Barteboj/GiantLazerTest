@@ -11,7 +11,7 @@ public class LibraryItemButtonController : MonoBehaviour
     [SerializeField]
     private Button button;
 
-    private LibraryItem libraryItem;
+    private LibraryItem itemPrefab;
 
     private void OnEnable()
     {
@@ -25,12 +25,12 @@ public class LibraryItemButtonController : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        Instantiate(libraryItem.Prefab);
+        Instantiate(itemPrefab);
     }
 
-    public void Initialize(LibraryItem item)
+    public void Initialize(LibraryItem itemPrefab)
     {
-        libraryItem = item;
-        DescriptionText.text = $"{libraryItem.ItemName} {libraryItem.Category}";
+        this.itemPrefab = itemPrefab;
+        DescriptionText.text = $"{this.itemPrefab.ItemName} {this.itemPrefab.Category}";
     }
 }

@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class Port
+public class Port : MonoBehaviour
 {
     [field: SerializeField]
     public PortType Type { get; private set; }
@@ -12,5 +10,7 @@ public class Port
     [field: SerializeField]
     public List<LibraryCategory> CompatibleCategories { get; private set; }
     [field: SerializeField]
-    public List<LibraryItem> CompatibleItems { get; private set; }
+    public List<LibraryItemType> CompatibleItems { get; private set; }
+    [field: SerializeField]
+    public Port connectedPort { get; private set; }
 }

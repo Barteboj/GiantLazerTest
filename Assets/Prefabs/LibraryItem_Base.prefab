@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 3894263815442648874}
   - component: {fileID: 5420901080000031297}
   - component: {fileID: 5487657271135039750}
+  - component: {fileID: 2773118587028203932}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -293,6 +294,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2773118587028203932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2227810106812334285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e42e77a9b38934fa1bf34951608551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::ObjectInteraction
+  draggedTransform: {fileID: 8336128978872968384}
 --- !u!1 &4568373407089267464
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,6 +316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8336128978872968384}
+  - component: {fileID: 2869883923766052006}
   m_Layer: 0
   m_Name: LibraryItem_Base
   m_TagString: Untagged
@@ -326,3 +341,15 @@ Transform:
   - {fileID: 5543006424069457703}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2869883923766052006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568373407089267464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0cf267fb0674b34891d8804829e019c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::LibraryItemInstance

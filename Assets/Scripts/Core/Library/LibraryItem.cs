@@ -1,8 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LibraryItem", menuName = "Scriptable Objects/LibraryItem")]
-public class LibraryItem : ScriptableObject
+public class LibraryItem : MonoBehaviour
 {
+    [field: SerializeField]
+    public LibraryItemType ItemType { get; private set; }
     [field: SerializeField]
     public string ItemName { get; private set; }
     [field: SerializeField]
@@ -13,6 +14,4 @@ public class LibraryItem : ScriptableObject
     public Sprite Visualization { get; private set; }
     [field: SerializeField]
     public Port[] Ports { get; private set; }
-    [field: SerializeField]
-    public GameObject Prefab { get; private set; }
 }

@@ -10,7 +10,7 @@ public class LibraryPanelController : MonoBehaviour
     [SerializeField]
     private Transform itemListContainer;
     [SerializeField]
-    private LibraryItem[] libraryItems;
+    private LibraryItem[] libraryItemPrefabs;
     [SerializeField]
     private GameObject itemButtonPrefab;
 
@@ -46,12 +46,12 @@ public class LibraryPanelController : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (var item in libraryItems)
+        foreach (var itemPrefab in libraryItemPrefabs)
         {
-            if (item.Category == chosenCategory)
+            if (itemPrefab.Category == chosenCategory)
             {
                 var instantiated = Instantiate(itemButtonPrefab, itemListContainer).GetComponent<LibraryItemButtonController>();
-                instantiated.Initialize(item);
+                instantiated.Initialize(itemPrefab);
             }
         }
     }
