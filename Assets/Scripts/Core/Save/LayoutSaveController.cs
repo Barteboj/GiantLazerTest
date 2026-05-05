@@ -1,41 +1,24 @@
-using UnityEngine;
-using UnityEngine.UI;
-using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
+using UnityEngine;
 
-public class SaveLoadController : MonoBehaviour
+public class LayoutSaveController : MonoBehaviour, ILayoutSaveController
 {
-    private string saveFilePath;
-
-    [SerializeField]
-    private Button saveButton;
-    [SerializeField]
-    private Button loadButton;
     [SerializeField]
     private LibraryItem[] libraryItemPrefabs;
     [SerializeField]
     private GameObject portsConnectionPrefab;
+
+    private string saveFilePath;
 
     private void Awake()
     {
         saveFilePath = Path.Combine(Application.persistentDataPath, "save.json");
     }
 
-    private void OnEnable()
-    {
-        saveButton.onClick.AddListener(OnSaveClicked);
-        loadButton.onClick.AddListener(OnLoadClicked);
-    }
-
-    private void OnDisable()
-    {
-        saveButton.onClick.RemoveListener(OnSaveClicked);
-        loadButton.onClick.RemoveListener(OnLoadClicked);
-    }
-
-    private void OnSaveClicked()
+    public void SaveLayout()
     {
         List<LibraryItemDTO> itemsToSave = new List<LibraryItemDTO>();
         var items = FindObjectsByType<LibraryItem>(FindObjectsSortMode.None);
@@ -88,7 +71,7 @@ public class SaveLoadController : MonoBehaviour
         }
     }
 
-    private void OnLoadClicked()
+    public void LoadLayout()
     {
         if (!File.Exists(saveFilePath))
         {

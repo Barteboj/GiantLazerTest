@@ -231,7 +231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4091338947192455072
 RectTransform:
   m_ObjectHideFlags: 0
@@ -984,6 +984,7 @@ MonoBehaviour:
   optionsPanel: {fileID: 1909880179024040044}
   editPanel: {fileID: 1653162707161957769}
   editDescription: {fileID: 228542807748486115}
+  openInputAction: {fileID: 0}
 --- !u!1 &6309321523844799259
 GameObject:
   m_ObjectHideFlags: 0

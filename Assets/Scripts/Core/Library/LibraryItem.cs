@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class LibraryItem : MonoBehaviour
+public class LibraryItem : MonoBehaviour, ILibraryItem
 {
     [field: SerializeField]
     public LibraryItemType ItemType { get; private set; }
@@ -14,4 +15,8 @@ public class LibraryItem : MonoBehaviour
     public Sprite Visualization { get; private set; }
     [field: SerializeField]
     public Port[] Ports { get; private set; }
+    [field: SerializeField]
+    public Renderer Renderer { get; private set; }
+
+    public GameObject GameObject => gameObject;
 }

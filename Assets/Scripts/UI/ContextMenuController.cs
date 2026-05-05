@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ContextMenuController : MonoBehaviour
@@ -18,11 +19,14 @@ public class ContextMenuController : MonoBehaviour
     private GameObject editPanel;
     [SerializeField]
     private TextMeshProUGUI editDescription;
+    [SerializeField]
+    private InputActionReference openInputAction;
 
-    private LibraryItem contextItem;
+    private ILibraryItem contextItem;
 
     private void OnEnable()
     {
+        openInputAction.action.performed += OnOpenInputActionPerformed;
         editButton.onClick.AddListener(OnEditClicked);
         editCloseButton.onClick.AddListener(OnEditCloseClicked);
         deleteButton.onClick.AddListener(OnDeleteClicked);
@@ -30,14 +34,32 @@ public class ContextMenuController : MonoBehaviour
 
     private void OnDisable()
     {
+        openInputAction.action.performed -= OnOpenInputActionPerformed;
         editButton.onClick.RemoveListener(OnEditClicked);
         editCloseButton.onClick.RemoveListener(OnEditCloseClicked);
         deleteButton.onClick.RemoveListener(OnDeleteClicked);
     }
 
+    private void OnOpenInputActionPerformed(InputAction.CallbackContext context)
+    {
+        Vector2 screenPos = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            ILibraryItem selectedItem = hit.collider.GetComponentInParent<ILibraryItem>();
+
+            if (selectedItem != null)
+            {
+                Activate(selectedItem);
+                transform.position = screenPos;
+            }
+        }
+    }
+
     private void OnEditCloseClicked()
     {
-        gameObject.SetActive(false);
+        editPanel.SetActive(false);
     }
 
     private void OnEditClicked()
@@ -62,15 +84,14 @@ public class ContextMenuController : MonoBehaviour
             port.RemoveAttachedConnection();
         }
 
-        Destroy(contextItem.gameObject);
-        gameObject.SetActive(false);
+        Destroy(contextItem.GameObject);
+        optionsPanel.SetActive(false);
     }
 
-    public void Activate(LibraryItem contextItem)
+    public void Activate(ILibraryItem contextItem)
     {
         this.contextItem = contextItem;
         optionsPanel.SetActive(true);
         editPanel.SetActive(false);
-        gameObject.SetActive(true);
     }
 }

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LayoutValidationController : MonoBehaviour
+public class LayoutValidationPanelController : MonoBehaviour
 {
     [SerializeField]
     private Button checkLayoutButton;
@@ -39,9 +41,9 @@ public class LayoutValidationController : MonoBehaviour
             Destroy(validationMessagesContainer.GetChild(i).gameObject);
         }
 
-        List<LibraryItem> errorItems = new List<LibraryItem>();
-        List<LibraryItem> warningItems = new List<LibraryItem>();
-        var items = FindObjectsByType<LibraryItem>(FindObjectsSortMode.None);
+        List<ILibraryItem> errorItems = new List<ILibraryItem>();
+        List<ILibraryItem> warningItems = new List<ILibraryItem>();
+        var items = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<ILibraryItem>(true));
         bool anyWarnings = false;
         bool anyErrors = false;
         foreach (var item in items)
@@ -54,7 +56,7 @@ public class LayoutValidationController : MonoBehaviour
                 {
                     if (port.connectedPort != null)
                     {
-                        if (!port.CompatibleItems.Contains(port.connectedPort.GetComponentInParent<LibraryItem>().ItemType) && !port.CompatibleCategories.Contains(port.connectedPort.GetComponentInParent<LibraryItem>().Category))
+                        if (!port.CompatibleItems.Contains(port.connectedPort.GetComponentInParent<ILibraryItem>().ItemType) && !port.CompatibleCategories.Contains(port.connectedPort.GetComponentInParent<ILibraryItem>().Category))
                         {
                             Instantiate(validationMessagePrefab, validationMessagesContainer).GetComponentInChildren<TextMeshProUGUI>().text = $"Error: {item.ItemName} port {port.PortName} cannot be connected to {port.connectedPort.GetComponentInParent<LibraryItem>().ItemName}";
                             errorItems.Add(item);
@@ -72,17 +74,17 @@ public class LayoutValidationController : MonoBehaviour
 
             if (hasError)
             {
-                item.GetComponentInChildren<MeshRenderer>().sharedMaterial = errorMaterial;
+                item.Renderer.sharedMaterial = errorMaterial;
                 anyErrors = true;
             }
             else if (hasWarning)
             {
-                item.GetComponentInChildren<MeshRenderer>().sharedMaterial = warningMaterial;
+                item.Renderer.sharedMaterial = warningMaterial;
                 anyWarnings = true;
             }
             else
             {
-                item.GetComponentInChildren<MeshRenderer>().sharedMaterial = defaultMaterial;
+                item.Renderer.sharedMaterial = defaultMaterial;
             }
         }
 
@@ -92,7 +94,7 @@ public class LayoutValidationController : MonoBehaviour
 
             foreach (var item in items)
             {
-                item.GetComponentInChildren<MeshRenderer>().sharedMaterial = goodMaterial;
+                item.Renderer.sharedMaterial = goodMaterial;
             }
         }
     }

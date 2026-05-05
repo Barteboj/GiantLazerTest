@@ -1335,12 +1335,12 @@ MonoBehaviour:
   categoryDropdown: {fileID: 1939497351}
   itemListContainer: {fileID: 1421262314}
   libraryItemPrefabs:
-  - {fileID: 2151759715702617769, guid: 1e848d536f2178c49af9d1ee87409626, type: 3}
-  - {fileID: 2151759715702617769, guid: f1d2930c957cfeb45babbaecd3d6e89e, type: 3}
-  - {fileID: 2151759715702617769, guid: 8f5229a4ac35d1645bb603b893299702, type: 3}
-  - {fileID: 2151759715702617769, guid: 1ec4c4327fafac54aaa70ade7c54e291, type: 3}
-  - {fileID: 2151759715702617769, guid: 7b1bcdd79e64ae04c970299589fd5ab6, type: 3}
-  - {fileID: 2151759715702617769, guid: 0042368db78a8bf43961f593deed23be, type: 3}
+  - {fileID: 389958696873533703, guid: 7b1bcdd79e64ae04c970299589fd5ab6, type: 3}
+  - {fileID: 389958696873533703, guid: 8f5229a4ac35d1645bb603b893299702, type: 3}
+  - {fileID: 389958696873533703, guid: 1ec4c4327fafac54aaa70ade7c54e291, type: 3}
+  - {fileID: 389958696873533703, guid: 0042368db78a8bf43961f593deed23be, type: 3}
+  - {fileID: 389958696873533703, guid: 1e848d536f2178c49af9d1ee87409626, type: 3}
+  - {fileID: 389958696873533703, guid: f1d2930c957cfeb45babbaecd3d6e89e, type: 3}
   itemButtonPrefab: {fileID: 7257861620470162492, guid: 469948b9119a4bc429536c22ec13dcd6, type: 3}
 --- !u!1 &742080639
 GameObject:
@@ -3136,6 +3136,7 @@ GameObject:
   - component: {fileID: 1633373335}
   - component: {fileID: 1633373334}
   - component: {fileID: 1633373336}
+  - component: {fileID: 1633373337}
   m_Layer: 5
   m_Name: SaveLoadPanel
   m_TagString: Untagged
@@ -3217,13 +3218,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Core::SaveLoadController
   saveButton: {fileID: 1276962641}
   loadButton: {fileID: 866426967}
+  layoutSaveControllerReference: {fileID: 1633373337}
+--- !u!114 &1633373337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633373331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5157d61c673fc2419d19fdbcf339ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::LayoutSaveController
   libraryItemPrefabs:
-  - {fileID: 2151759715702617769, guid: 1e848d536f2178c49af9d1ee87409626, type: 3}
-  - {fileID: 2151759715702617769, guid: f1d2930c957cfeb45babbaecd3d6e89e, type: 3}
+  - {fileID: 2151759715702617769, guid: 7b1bcdd79e64ae04c970299589fd5ab6, type: 3}
   - {fileID: 2151759715702617769, guid: 8f5229a4ac35d1645bb603b893299702, type: 3}
   - {fileID: 2151759715702617769, guid: 1ec4c4327fafac54aaa70ade7c54e291, type: 3}
-  - {fileID: 2151759715702617769, guid: 7b1bcdd79e64ae04c970299589fd5ab6, type: 3}
   - {fileID: 2151759715702617769, guid: 0042368db78a8bf43961f593deed23be, type: 3}
+  - {fileID: 2151759715702617769, guid: 1e848d536f2178c49af9d1ee87409626, type: 3}
+  - {fileID: 2151759715702617769, guid: f1d2930c957cfeb45babbaecd3d6e89e, type: 3}
   portsConnectionPrefab: {fileID: 247709356122728435, guid: acc65cd71b562c849baba17f217988ab, type: 3}
 --- !u!1 &1666549011
 GameObject:
@@ -4894,6 +4908,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1780865679}
     m_Modifications:
+    - target: {fileID: 2108865484787084431, guid: 0365de33ef1178b4b979791f8605ce22, type: 3}
+      propertyPath: openInputAction
+      value: 
+      objectReference: {fileID: 3624624553938068193, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     - target: {fileID: 2480301686563657109, guid: 0365de33ef1178b4b979791f8605ce22, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4977,10 +4995,6 @@ PrefabInstance:
     - target: {fileID: 5779988257250185448, guid: 0365de33ef1178b4b979791f8605ce22, type: 3}
       propertyPath: m_Name
       value: ContextMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 5779988257250185448, guid: 0365de33ef1178b4b979791f8605ce22, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
