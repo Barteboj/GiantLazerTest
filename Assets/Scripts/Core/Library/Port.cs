@@ -5,8 +5,6 @@ using UnityEngine.EventSystems;
 
 public class Port : MonoBehaviour, IPointerClickHandler
 {
-    public static event Action<Port> OnPortClicked;
-
     [field: SerializeField]
     public PortType Type { get; private set; }
     [field: SerializeField]
