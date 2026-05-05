@@ -1018,6 +1018,8 @@ GameObject:
   - component: {fileID: 479437488}
   - component: {fileID: 479437487}
   - component: {fileID: 479437489}
+  - component: {fileID: 479437491}
+  - component: {fileID: 479437490}
   m_Layer: 5
   m_Name: LayoutValidationPanel
   m_TagString: Untagged
@@ -1100,10 +1102,37 @@ MonoBehaviour:
   checkLayoutButton: {fileID: 1668035224}
   validationMessagePrefab: {fileID: 645935705218700889, guid: b4924c039168853479978a0353284753, type: 3}
   validationMessagesContainer: {fileID: 123501776}
+  layoutValidatorsReference:
+  - {fileID: 479437491}
+  - {fileID: 479437490}
   defaultMaterial: {fileID: 2100000, guid: 73d65fe49181abf4bbb1373bb42e20e7, type: 2}
   warningMaterial: {fileID: 2100000, guid: 7bb3a2945f8de8f46b43a41e6d8b6598, type: 2}
   errorMaterial: {fileID: 2100000, guid: 891cbb9add2b1f545be46b7ef34d20e1, type: 2}
   goodMaterial: {fileID: 2100000, guid: 0ea89f6b38a4bd248bb11cb5d0ed9763, type: 2}
+--- !u!114 &479437490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479437485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac1e72bbba90353428e2c1042e906d9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::LayoutConnectionCompletenessValidator
+--- !u!114 &479437491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479437485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cfdf740a1841d44940f0bcec4f0652, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::LayoutPortsConnectionCompatibilityValidator
 --- !u!1 &605903181
 GameObject:
   m_ObjectHideFlags: 0

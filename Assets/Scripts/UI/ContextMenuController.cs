@@ -47,12 +47,15 @@ public class ContextMenuController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            ILibraryItem selectedItem = hit.collider.GetComponentInParent<ILibraryItem>();
-
-            if (selectedItem != null)
+            if (hit.collider.GetComponent<LibraryItemDraggingController>() != null)
             {
-                Activate(selectedItem);
-                transform.position = screenPos;
+                ILibraryItem selectedItem = hit.collider.GetComponentInParent<ILibraryItem>();
+
+                if (selectedItem != null)
+                {
+                    Activate(selectedItem);
+                    transform.position = screenPos;
+                }
             }
         }
     }
