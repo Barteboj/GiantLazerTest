@@ -103,7 +103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1157728652659171914, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
       propertyPath: <PortName>k__BackingField
-      value: Raw Material Output
+      value: Output
       objectReference: {fileID: 0}
     - target: {fileID: 1157728652659171914, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
       propertyPath: <CompatibleItems>k__BackingField.Array.size

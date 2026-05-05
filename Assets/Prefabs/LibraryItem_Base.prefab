@@ -249,7 +249,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 73d65fe49181abf4bbb1373bb42e20e7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -353,3 +353,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0cf267fb0674b34891d8804829e019c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core::LibraryItemInstance
+  <ItemType>k__BackingField: 0
+  <ItemName>k__BackingField: 
+  <Category>k__BackingField: 0
+  <Size>k__BackingField: 0
+  <Visualization>k__BackingField: {fileID: 0}
+  <Ports>k__BackingField: []
