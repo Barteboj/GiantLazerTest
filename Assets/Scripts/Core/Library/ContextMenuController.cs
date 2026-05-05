@@ -57,6 +57,11 @@ public class ContextMenuController : MonoBehaviour
 
     private void OnDeleteClicked()
     {
+        foreach (var port in contextItem.Ports)
+        {
+            port.RemoveAttachedConnection();
+        }
+
         Destroy(contextItem.gameObject);
         gameObject.SetActive(false);
     }

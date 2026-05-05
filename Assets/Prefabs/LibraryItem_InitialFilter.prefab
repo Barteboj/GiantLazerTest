@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2086536424180873413
+--- !u!1001 &1175522619110465061
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -62,13 +62,101 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8773146954419450136, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
       propertyPath: m_Name
-      value: Port
+      value: OutputPort
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+--- !u!114 &18400925862247535 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1157728652659171914, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+  m_PrefabInstance: {fileID: 1175522619110465061}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de83af41d2a57014694c6f4273bdbf58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Port
+--- !u!4 &4866533912291430271 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+  m_PrefabInstance: {fileID: 1175522619110465061}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2086536424180873413
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5305406477715707599}
+    m_Modifications:
+    - target: {fileID: 1157728652659171914, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: <CompatibleItems>k__BackingField.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.019
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773146954419450136, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: m_Name
+      value: InputPort
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+--- !u!114 &929370732213590671 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1157728652659171914, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+  m_PrefabInstance: {fileID: 2086536424180873413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de83af41d2a57014694c6f4273bdbf58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::Port
 --- !u!4 &5705480759221365151 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
@@ -83,24 +171,36 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2869883923766052006, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
-      propertyPath: <ItemName>k__BackingField
-      value: Raw Material Tank B
-      objectReference: {fileID: 0}
-    - target: {fileID: 2869883923766052006, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
-      propertyPath: <ItemType>k__BackingField
+      propertyPath: <Category>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2869883923766052006, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
+      propertyPath: <ItemName>k__BackingField
+      value: InitialFilter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2869883923766052006, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
+      propertyPath: <Ports>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2869883923766052006, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
+      propertyPath: '<Ports>k__BackingField.Array.data[0]'
+      value: 
+      objectReference: {fileID: 929370732213590671}
+    - target: {fileID: 2869883923766052006, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
+      propertyPath: '<Ports>k__BackingField.Array.data[1]'
+      value: 
+      objectReference: {fileID: 18400925862247535}
     - target: {fileID: 4568373407089267464, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
       propertyPath: m_Name
-      value: LibraryItem_RawMaterialTankB
+      value: LibraryItem_InitialFilter
       objectReference: {fileID: 0}
     - target: {fileID: 8272564346625002352, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
       propertyPath: m_text
-      value: Raw Material Tank B
+      value: Initial Filter
       objectReference: {fileID: 0}
     - target: {fileID: 8272564346625002352, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
       propertyPath: m_fontSize
-      value: 2.8
+      value: 4.25
       objectReference: {fileID: 0}
     - target: {fileID: 8336128978872968384, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
       propertyPath: m_LocalPosition.x
@@ -148,6 +248,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8336128978872968384, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5705480759221365151}
+    - targetCorrespondingSourceObject: {fileID: 8336128978872968384, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4866533912291430271}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
 --- !u!4 &5305406477715707599 stripped

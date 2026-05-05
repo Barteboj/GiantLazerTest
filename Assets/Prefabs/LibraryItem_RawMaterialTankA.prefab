@@ -105,13 +105,25 @@ PrefabInstance:
       propertyPath: <PortName>k__BackingField
       value: Raw Material Output
       objectReference: {fileID: 0}
+    - target: {fileID: 1157728652659171914, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: <CompatibleItems>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157728652659171914, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: '<CompatibleItems>k__BackingField.Array.data[0]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157728652659171914, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
+      propertyPath: '<CompatibleItems>k__BackingField.Array.data[1]'
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.752
       objectReference: {fileID: 0}
     - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.025
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6041910227316625754, guid: 972d1e9e0372cad4bba7bd16887e08cd, type: 3}
       propertyPath: m_LocalPosition.z

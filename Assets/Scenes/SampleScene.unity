@@ -660,6 +660,10 @@ MonoBehaviour:
   libraryItemPrefabs:
   - {fileID: 2151759715702617769, guid: 1e848d536f2178c49af9d1ee87409626, type: 3}
   - {fileID: 2151759715702617769, guid: f1d2930c957cfeb45babbaecd3d6e89e, type: 3}
+  - {fileID: 2151759715702617769, guid: 8f5229a4ac35d1645bb603b893299702, type: 3}
+  - {fileID: 2151759715702617769, guid: 1ec4c4327fafac54aaa70ade7c54e291, type: 3}
+  - {fileID: 2151759715702617769, guid: 7b1bcdd79e64ae04c970299589fd5ab6, type: 3}
+  - {fileID: 2151759715702617769, guid: 0042368db78a8bf43961f593deed23be, type: 3}
   itemButtonPrefab: {fileID: 7257861620470162492, guid: 469948b9119a4bc429536c22ec13dcd6, type: 3}
 --- !u!1 &742080639
 GameObject:
@@ -828,7 +832,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1855388149}
   m_HandleRect: {fileID: 1855388148}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -980,6 +984,52 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3, y: -0.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &982478991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 982478993}
+  - component: {fileID: 982478992}
+  m_Layer: 0
+  m_Name: PortConnectingController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &982478992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982478991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aead745eebc48074bb163e68da245630, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core::PortConnectingController
+  portClickAction: {fileID: -4645159302319974513, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  linePrefab: {fileID: 247709356122728435, guid: acc65cd71b562c849baba17f217988ab, type: 3}
+--- !u!4 &982478993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982478991}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -33.58493, y: -22.15306, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1543,7 +1593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000048852373}
+  m_AnchoredPosition: {x: 0, y: -0.00010069411}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1421262315
@@ -1765,7 +1815,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2037871367}
   m_HandleRect: {fileID: 2037871366}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2882,3 +2932,4 @@ SceneRoots:
   - {fileID: 871266717}
   - {fileID: 1780865679}
   - {fileID: 1299472157}
+  - {fileID: 982478993}
