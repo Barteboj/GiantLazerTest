@@ -207,12 +207,8 @@ PrefabInstance:
       value: LibraryItem_InitialFilter
       objectReference: {fileID: 0}
     - target: {fileID: 8272564346625002352, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
-      propertyPath: m_text
-      value: Initial Filter
-      objectReference: {fileID: 0}
-    - target: {fileID: 8272564346625002352, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
       propertyPath: m_fontSize
-      value: 4.25
+      value: 3.7
       objectReference: {fileID: 0}
     - target: {fileID: 8336128978872968384, guid: 92b0c7ff2a160954798d00a1b7380f93, type: 3}
       propertyPath: m_LocalPosition.x

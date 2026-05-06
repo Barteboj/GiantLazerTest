@@ -125,7 +125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de83af41d2a57014694c6f4273bdbf58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core::Port
+  meshRenderer: {fileID: 4699063560818650900}
   <Type>k__BackingField: 0
   <PortName>k__BackingField: 
   <CompatibleCategories>k__BackingField: 
   <CompatibleItems>k__BackingField: 
+  portsVisualData:
+  - <PortType>k__BackingField: 0
+    <Material>k__BackingField: {fileID: 2100000, guid: 6dfaebae796399f46be6c3833c405d82, type: 2}
+  - <PortType>k__BackingField: 1
+    <Material>k__BackingField: {fileID: 2100000, guid: 4768bacaa0c04f948b964393282b2033, type: 2}

@@ -7,7 +7,11 @@ namespace GiantLaserTest.Core.Ports
 {
     public class Port : MonoBehaviour, IPointerClickHandler
     {
-        [Header("Parameters")]
+        [Header("References")]
+        [SerializeField]
+        private MeshRenderer meshRenderer;
+
+        [field: Header("Parameters")]
         [field: SerializeField]
         public PortType Type { get; private set; }
         [field: SerializeField]
@@ -17,9 +21,18 @@ namespace GiantLaserTest.Core.Ports
         [field: SerializeField]
         public List<LibraryItemType> CompatibleItems { get; private set; }
 
+        [SerializeField]
+        private List<PortVisualData> portsVisualData;
+
         public Port connectedPort { get; private set; }
 
         private PortsConnectionController portConnectionController;
+
+        private void Awake()
+        {
+            var material = portsVisualData.Find(x => x.PortType == Type).Material;
+            meshRenderer.sharedMaterial = material;
+        }
 
         public void OnPointerClick(PointerEventData eventData)
         {

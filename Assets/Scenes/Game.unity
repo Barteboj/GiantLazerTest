@@ -256,6 +256,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42652561}
   m_CullTransparentMesh: 1
+--- !u!1 &87371386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 87371387}
+  m_Layer: 0
+  m_Name: PortsRemovingController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &87371387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87371386}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1089522266}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &93367523
 GameObject:
   m_ObjectHideFlags: 0
@@ -2709,7 +2740,7 @@ GameObject:
   - component: {fileID: 982478993}
   - component: {fileID: 982478992}
   m_Layer: 0
-  m_Name: PortConnectingController
+  m_Name: PortsInteractionsController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2729,7 +2760,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Core::PortConnectingController
   deskController: {fileID: 871266718}
   portsConnectionPrefab: {fileID: 247709356122728435, guid: acc65cd71b562c849baba17f217988ab, type: 3}
-  portClickInputAction: {fileID: -4645159302319974513, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  createPortsConnectionInputAction: {fileID: -4645159302319974513, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  removePortsConnectionInputAction: {fileID: 6983294016719239612, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!4 &982478993
 Transform:
   m_ObjectHideFlags: 0
@@ -2845,6 +2877,7 @@ Transform:
   m_Children:
   - {fileID: 982478993}
   - {fileID: 7640574059999932041}
+  - {fileID: 87371387}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1119443134

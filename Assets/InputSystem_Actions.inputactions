@@ -82,15 +82,24 @@
                     "name": "Sprint",
                     "type": "Button",
                     "id": "641cd816-40e6-41b4-8c3d-04687c349290",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PortConnecting",
+                    "name": "CreatePortsConnection",
                     "type": "Button",
                     "id": "482116d9-b60a-48ba-aa26-05189f52192a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RemovePortsConnection",
+                    "type": "Button",
+                    "id": "0eec7d32-94e1-4d92-8001-fd44aea83781",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -499,7 +508,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "PortConnecting",
+                    "action": "CreatePortsConnection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "978b38a2-a7db-43d7-8f8a-a65f70f92e25",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "RemovePortsConnection",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
