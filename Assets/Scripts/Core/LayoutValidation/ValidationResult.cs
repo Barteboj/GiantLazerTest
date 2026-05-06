@@ -1,9 +1,9 @@
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace GiantLaserTest.Core.LayoutValidation
 {
     public class ValidationResult
     {
-        public ElementValidationResult[] ElementResults { get; set; }
+        public List<ElementValidationResult> ElementResults { get; private set; } = new List<ElementValidationResult>();
     }
 }

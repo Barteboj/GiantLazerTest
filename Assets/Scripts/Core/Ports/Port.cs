@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using GiantLaserTest.Core.Library;
 using UnityEngine;
@@ -8,6 +7,7 @@ namespace GiantLaserTest.Core.Ports
 {
     public class Port : MonoBehaviour, IPointerClickHandler
     {
+        [Header("Parameters")]
         [field: SerializeField]
         public PortType Type { get; private set; }
         [field: SerializeField]
@@ -16,10 +16,10 @@ namespace GiantLaserTest.Core.Ports
         public List<LibraryCategory> CompatibleCategories { get; private set; }
         [field: SerializeField]
         public List<LibraryItemType> CompatibleItems { get; private set; }
-        [field: SerializeField]
+
         public Port connectedPort { get; private set; }
 
-        private PortConnectionController partConnectionController;
+        private PortsConnectionController portConnectionController;
 
         public void OnPointerClick(PointerEventData eventData)
         {
@@ -29,10 +29,10 @@ namespace GiantLaserTest.Core.Ports
             }
         }
 
-        public void SetupConnection(PortConnectionController portConnectionController, Port otherPort)
+        public void SetupConnection(PortsConnectionController portConnectionController, Port otherPort)
         {
             connectedPort = otherPort;
-            this.partConnectionController = portConnectionController;
+            this.portConnectionController = portConnectionController;
         }
 
         public void RemoveAttachedConnection()
@@ -41,8 +41,8 @@ namespace GiantLaserTest.Core.Ports
             {
                 connectedPort.connectedPort = null;
                 connectedPort = null;
-                Destroy(partConnectionController.gameObject);
-                partConnectionController = null;
+                Destroy(portConnectionController.gameObject);
+                portConnectionController = null;
             }
         }
     }

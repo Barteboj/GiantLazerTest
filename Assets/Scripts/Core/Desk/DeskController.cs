@@ -10,8 +10,10 @@ namespace GiantLaserTest.Core.Desk
         public event Action OnLibraryItemAdded;
         public event Action OnLibraryItemRemoved;
 
+        [Header("Parameters")]
         [SerializeField]
         private float MaxSnappingDistance = 1f;
+        [Header("References")]
         [SerializeField]
         private LayerMask snapLayer;
 
@@ -20,13 +22,24 @@ namespace GiantLaserTest.Core.Desk
         private void OnEnable()
         {
             LibraryItemDraggingController.OnDraggingEnded += OnLibraryItemDraggingEnded;
-            LibraryItem.OnLibraryItemDestroyed += OnLibraryItemDestroyed;
+            LibraryItem.ItemDestroyed += OnLibraryItemDestroyed;
         }
 
         private void OnDisable()
         {
             LibraryItemDraggingController.OnDraggingEnded -= OnLibraryItemDraggingEnded;
-            LibraryItem.OnLibraryItemDestroyed -= OnLibraryItemDestroyed;
+            LibraryItem.ItemDestroyed -= OnLibraryItemDestroyed;
+        }
+
+        private void OnLibraryItemDraggingEnded(LibraryItemDraggingController controller)
+        {
+            var libraryItem = controller.GetComponentInParent<LibraryItem>();
+
+            if (Physics.Raycast(libraryItem.transform.position, -transform.up, out RaycastHit hit, MaxSnappingDistance, snapLayer))
+            {
+                libraryItem.transform.position = hit.point;
+                RegisterLibraryItem(libraryItem);
+            }
         }
 
         private void OnLibraryItemDestroyed(LibraryItem item)
@@ -38,16 +51,6 @@ namespace GiantLaserTest.Core.Desk
             }
         }
 
-        private void OnLibraryItemDraggingEnded(LibraryItemDraggingController controller)
-        {
-            var libraryItem = controller.GetComponentInParent<LibraryItem>();
-            if (Physics.Raycast(libraryItem.transform.position, -transform.up, out RaycastHit hit, MaxSnappingDistance, snapLayer))
-            {
-                libraryItem.transform.position = hit.point;
-                RegisterLibraryItem(libraryItem);
-            }
-        }
-
         public void RegisterLibraryItem(LibraryItem item)
         {
             if (!LibraryItems.Contains(item))
@@ -56,12 +59,6 @@ namespace GiantLaserTest.Core.Desk
                 LibraryItems.Add(item);
                 OnLibraryItemAdded?.Invoke();
             }
-        }
-
-        public void RemoveLibraryItem(LibraryItem item)
-        {
-            LibraryItems.Remove(item);
-            Destroy(item.gameObject);
         }
     }
 }

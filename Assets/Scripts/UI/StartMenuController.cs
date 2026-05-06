@@ -9,15 +9,18 @@ namespace GiantLaserTest.UI
 {
     public class StartMenuController : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField]
         private TMP_Dropdown evaluationModeDropdown;
         [SerializeField]
         private Button startGameButton;
+
         private EvaluationMode[] evaluationModes;
 
         private void Awake()
         {
             evaluationModes = Enum.GetValues(typeof(EvaluationMode)) as EvaluationMode[];
+
             foreach (EvaluationMode mode in evaluationModes)
             {
                 evaluationModeDropdown.options.Add(new TMP_Dropdown.OptionData(mode.ToString()));

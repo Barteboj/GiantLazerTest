@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 using GiantLaserTest.Attributes;
 using GiantLaserTest.Core.Save;
 
@@ -8,8 +7,7 @@ namespace GiantLaserTest.UI
 {
     public class SaveLoadPanelController : MonoBehaviour
     {
-        private string saveFilePath;
-
+        [Header("References")]
         [SerializeField]
         private Button saveButton;
         [SerializeField]
@@ -21,7 +19,6 @@ namespace GiantLaserTest.UI
 
         private void Awake()
         {
-            saveFilePath = Path.Combine(Application.persistentDataPath, "save.json");
             layoutSaveController = layoutSaveControllerReference as ILayoutSaveController;
         }
 

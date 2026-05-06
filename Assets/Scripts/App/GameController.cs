@@ -1,4 +1,3 @@
-using System;
 using GiantLaserTest.Core.LayoutValidation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,11 +7,13 @@ namespace GiantLazerTest.App
     //made to have anything in App assembly definition
     public class GameController : MonoBehaviour
     {
+        public static GameController Instance { get; private set; }
+
         [SerializeField]
         private int gameSceneBuildIndex;
+
         public EvaluationMode StartingEvaluationMode { get; private set; }
 
-        public static GameController Instance { get; private set; }
 
         private void Awake()
         {

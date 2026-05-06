@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +7,7 @@ namespace GiantLaserTest.Core.LayoutValidation
     {
         public EvaluationMode Mode => EvaluationMode.Test;
 
+        [Header("References")]
         [SerializeField]
         private Button evaluateButton;
 

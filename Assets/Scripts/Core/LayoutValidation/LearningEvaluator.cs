@@ -1,4 +1,3 @@
-using System.Collections;
 using GiantLaserTest.Core.Desk;
 using GiantLaserTest.Core.Ports;
 using UnityEngine;
@@ -9,6 +8,7 @@ namespace GiantLaserTest.Core.LayoutValidation
     {
         public EvaluationMode Mode => EvaluationMode.Learning;
 
+        [Header("References")]
         [SerializeField]
         private DeskController deskController;
 
@@ -17,12 +17,10 @@ namespace GiantLaserTest.Core.LayoutValidation
         public void Activate(ILayoutValidationProcessController processController)
         {
             this.processController = processController;
-
             deskController.OnLibraryItemAdded += OnLayoutChanged;
             deskController.OnLibraryItemRemoved += OnLayoutChanged;
-            PortConnectionController.OnConnectionCreated += OnLayoutChanged;
-            PortConnectionController.OnConnectionDestroyed += OnLayoutChanged;
-
+            PortsConnectionController.ConnectionCreated += OnLayoutChanged;
+            PortsConnectionController.ConnectionDestroyed += OnLayoutChanged;
             processController.ValidateLayout();
         }
 
@@ -30,8 +28,8 @@ namespace GiantLaserTest.Core.LayoutValidation
         {
             deskController.OnLibraryItemAdded -= OnLayoutChanged;
             deskController.OnLibraryItemRemoved -= OnLayoutChanged;
-            PortConnectionController.OnConnectionCreated -= OnLayoutChanged;
-            PortConnectionController.OnConnectionDestroyed -= OnLayoutChanged;
+            PortsConnectionController.ConnectionCreated -= OnLayoutChanged;
+            PortsConnectionController.ConnectionDestroyed -= OnLayoutChanged;
         }
 
         private void OnLayoutChanged()

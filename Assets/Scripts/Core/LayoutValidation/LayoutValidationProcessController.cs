@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using GiantLaserTest.Attributes;
 using GiantLaserTest.Core.Desk;
+using GiantLaserTest.Core.Library;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace GiantLaserTest.Core.LayoutValidation
 {
     public class LayoutValidationProcessController : MonoBehaviour, ILayoutValidationProcessController
     {
-        public event Action<ValidationResult[]> OnValidationCompleted;
+        public event Action<List<ValidationResult>> ValidationCompleted;
 
-        [SerializeField, RequireInterface(typeof(ILayoutValidator))]
-        private UnityEngine.Object[] layoutValidatorsReference;
+        [Header("References")]
         [SerializeField]
         private DeskController deskController;
+        [SerializeField, RequireInterface(typeof(ILayoutValidator))]
+        private UnityEngine.Object[] layoutValidatorsReference;
 
         private ILayoutValidator[] layoutValidators;
 
@@ -27,7 +28,7 @@ namespace GiantLaserTest.Core.LayoutValidation
         public void ValidateLayout()
         {
             List<ValidationResult> validationResults = new List<ValidationResult>();
-            LayoutState layoutState = new LayoutState { LibraryItems = deskController.LibraryItems.ToArray() };
+            LayoutState layoutState = new LayoutState(new List<ILibraryItem>(deskController.LibraryItems));
 
             foreach (var validator in layoutValidators)
             {
@@ -35,7 +36,7 @@ namespace GiantLaserTest.Core.LayoutValidation
                 validationResults.Add(result);
             }
 
-            OnValidationCompleted?.Invoke(validationResults.ToArray());
+            ValidationCompleted?.Invoke(validationResults);
         }
     }
 }

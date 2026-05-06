@@ -9,7 +9,6 @@ namespace GiantLaserTest.Core.LayoutValidation
         public ValidationResult Validate(LayoutState state)
         {
             var result = new ValidationResult();
-            var elementResults = new List<ElementValidationResult>();
 
             foreach (var item in state.LibraryItems)
             {
@@ -17,17 +16,11 @@ namespace GiantLaserTest.Core.LayoutValidation
                 {
                     if (port.Type == PortType.Output && port.connectedPort == null)
                     {
-                        elementResults.Add(new ElementValidationResult
-                        {
-                            RelatedItem = item,
-                            ResultType = ElementValidationResultType.Warning,
-                            Message = $"{item.ItemName} port {port.PortName} is not connected to any port"
-                        });
+                        result.ElementResults.Add(new ElementValidationResult(ElementValidationResultType.Warning, $"{item.ItemName} port {port.PortName} is not connected to any port", item));
                     }
                 }
             }
 
-            result.ElementResults = elementResults.ToArray();
             return result;
         }
     }

@@ -2,12 +2,12 @@ using System;
 using GiantLaserTest.Core.Library;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace GiantLaserTest.UI
 {
     public class LibraryPanelController : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField]
         private TMP_Dropdown categoryDropdown;
         [SerializeField]
@@ -24,10 +24,12 @@ namespace GiantLaserTest.UI
         private void Start()
         {
             categories = Enum.GetValues(typeof(LibraryCategory)) as LibraryCategory[];
+
             foreach (LibraryCategory category in categories)
             {
                 categoryDropdown.options.Add(new TMP_Dropdown.OptionData(category.ToString()));
             }
+
             categoryDropdown.onValueChanged.AddListener(OnCategoryChanged);
             LoadItemsForCategory(categoryDropdown.value);
         }
@@ -37,9 +39,9 @@ namespace GiantLaserTest.UI
             categoryDropdown.onValueChanged.RemoveListener(OnCategoryChanged);
         }
 
-        private void OnCategoryChanged(int value)
+        private void OnCategoryChanged(int categoryIndex)
         {
-            LoadItemsForCategory(value);
+            LoadItemsForCategory(categoryIndex);
         }
 
         private void LoadItemsForCategory(int categoryIndex)

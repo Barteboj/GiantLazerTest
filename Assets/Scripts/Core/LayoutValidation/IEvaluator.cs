@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace GiantLaserTest.Core.LayoutValidation
 {
     public interface IEvaluator

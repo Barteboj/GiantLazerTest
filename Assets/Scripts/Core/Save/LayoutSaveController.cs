@@ -12,12 +12,13 @@ namespace GiantLaserTest.Core.Save
 {
     public class LayoutSaveController : MonoBehaviour, ILayoutSaveController
     {
+        [Header("References")]
+        [SerializeField]
+        private DeskController deskController;
         [SerializeField]
         private LibraryItem[] libraryItemPrefabs;
         [SerializeField]
         private GameObject portsConnectionPrefab;
-        [SerializeField]
-        private DeskController deskController;
 
         private string saveFilePath;
 
@@ -28,50 +29,12 @@ namespace GiantLaserTest.Core.Save
 
         public void SaveLayout()
         {
-            List<LibraryItemDTO> itemsToSave = new List<LibraryItemDTO>();
-            var items = deskController.LibraryItems;
-
-            foreach (var item in items)
-            {
-                var outputPortsConnections = new List<PortDTO>();
-
-                foreach (var port in item.Ports)
-                {
-                    if (port.Type == PortType.Output)
-                    {
-                        if (port.connectedPort != null)
-                        {
-                            outputPortsConnections.Add(new PortDTO
-                            {
-                                ConnectedItemType = port.connectedPort.GetComponentInParent<LibraryItem>().ItemType,
-                                ConnectedPortIndex = port.connectedPort.GetComponentInParent<LibraryItem>().Ports.ToList().IndexOf(port.connectedPort)
-                            });
-                        }
-                        else
-                        {
-                            outputPortsConnections.Add(new PortDTO
-                            {
-                                ConnectedPortIndex = -1
-                            });
-                        }
-                    }
-                }
-
-                itemsToSave.Add(new LibraryItemDTO
-                {
-                    ItemType = item.ItemType,
-                    Position = new SerializableVector3(item.GameObject.transform.position),
-                    OutputPortsConnections = outputPortsConnections.ToArray()
-                });
-            }
-
-            string json = JsonConvert.SerializeObject(itemsToSave, Formatting.Indented);
-            Debug.Log(json);
+            var saveData = GetDataForSaving();
+            string saveJson = JsonConvert.SerializeObject(saveData, Formatting.Indented);
 
             try
             {
-                File.WriteAllText(saveFilePath, json);
-                Debug.Log($"Saved successfully to: {saveFilePath}");
+                File.WriteAllText(saveFilePath, saveJson);
             }
             catch (System.Exception e)
             {
@@ -99,52 +62,88 @@ namespace GiantLaserTest.Core.Save
                     Debug.LogError($"Error reading: {e.Message}");
                 }
 
-                var items = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<ILibraryItem>());
-
-                foreach (var item in items)
-                {
-                    Destroy(item.GameObject);
-                }
-
-                var portsConnections = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<PortConnectionController>());
-
-                foreach (var connection in portsConnections)
-                {
-                    Destroy(connection.gameObject);
-                }
-
+                RemoveExistingElements();
                 List<LibraryItem> instantiatedItems = new List<LibraryItem>();
-                foreach (var itemDTO in itemsDTO)
+                PlaceElementsOnDesk(itemsDTO, instantiatedItems);
+                MakePortsConnections(itemsDTO, instantiatedItems);
+            }
+        }
+
+        private List<LibraryItemDTO> GetDataForSaving()
+        {
+            List<LibraryItemDTO> itemsToSave = new List<LibraryItemDTO>();
+            var items = deskController.LibraryItems;
+
+            foreach (var item in items)
+            {
+                var outputPortsConnections = new List<PortDTO>();
+
+                foreach (var port in item.Ports)
                 {
-                    var prefab = libraryItemPrefabs.FirstOrDefault(p => p.ItemType == itemDTO.ItemType);
-                    if (prefab != null)
+                    if (port.Type == PortType.Output)
                     {
-                        var newItem = Instantiate(prefab, itemDTO.Position.ToVector3(), Quaternion.identity);
-                        deskController.RegisterLibraryItem(newItem);
-                        instantiatedItems.Add(newItem);
+                        if (port.connectedPort != null)
+                        {
+                            outputPortsConnections.Add(new PortDTO(port.connectedPort.GetComponentInParent<LibraryItem>().ItemType,
+                                port.connectedPort.GetComponentInParent<LibraryItem>().Ports.ToList().IndexOf(port.connectedPort)));
+                        }
+                        else
+                        {
+                            outputPortsConnections.Add(new PortDTO(LibraryItemType.RawMaterialTankA, -1));
+                        }
                     }
                 }
 
-                foreach (var itemDTO in itemsDTO)
+                itemsToSave.Add(new LibraryItemDTO(new SerializableVector3(item.GameObject.transform.position), item.ItemType, outputPortsConnections));
+            }
+
+            return itemsToSave;
+        }
+
+        private void RemoveExistingElements()
+        {
+            var items = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<ILibraryItem>());
+
+            foreach (var item in items)
+            {
+                Destroy(item.GameObject);
+            }
+
+            var portsConnections = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<PortsConnectionController>());
+
+            foreach (var connection in portsConnections)
+            {
+                Destroy(connection.gameObject);
+            }
+        }
+
+        private void PlaceElementsOnDesk(List<LibraryItemDTO> itemsDTO, List<LibraryItem> instantiatedItems)
+        {
+            foreach (var itemDTO in itemsDTO)
+            {
+                var prefab = libraryItemPrefabs.FirstOrDefault(p => p.ItemType == itemDTO.ItemType);
+                var newItem = Instantiate(prefab, itemDTO.Position.ToVector3(), Quaternion.identity);
+                deskController.RegisterLibraryItem(newItem);
+                instantiatedItems.Add(newItem);
+            }
+        }
+
+        private void MakePortsConnections(List<LibraryItemDTO> itemsDTO, List<LibraryItem> instantiatedItems)
+        {
+            foreach (var itemDTO in itemsDTO)
+            {
+                var instantiatedItem = instantiatedItems.Find(i => i.ItemType == itemDTO.ItemType);
+                int portIndex = -1;
+
+                foreach (var portDTO in itemDTO.OutputPortsConnections)
                 {
-                    var instantiatedItem = instantiatedItems.FirstOrDefault(i => i.ItemType == itemDTO.ItemType);
+                    portIndex = instantiatedItem.Ports.FindIndex(portIndex + 1, p => p.Type == PortType.Output);
 
-                    if (instantiatedItem != null)
+                    if (portDTO.ConnectedPortIndex != -1)
                     {
-                        int portIndex = -1;
-
-                        for (int i = 0; i < itemDTO.OutputPortsConnections.Length; i++)
-                        {
-                            var portDTO = itemDTO.OutputPortsConnections[i];
-                            portIndex = instantiatedItem.Ports.ToList().FindIndex(portIndex + 1, p => p.Type == PortType.Output);
-
-                            if (portDTO.ConnectedPortIndex != -1)
-                            {
-                                var connectedItem = instantiatedItems.FirstOrDefault(it => it.ItemType == portDTO.ConnectedItemType);
-                                var partsConnectionController = Instantiate(portsConnectionPrefab).GetComponent<PortConnectionController>();
-                                partsConnectionController.Initialize(instantiatedItem.Ports[portIndex], connectedItem.Ports[portDTO.ConnectedPortIndex]);
-                            }
-                        }
+                        var connectedItem = instantiatedItems.FirstOrDefault(it => it.ItemType == portDTO.ConnectedItemType);
+                        var partsConnectionController = Instantiate(portsConnectionPrefab).GetComponent<PortsConnectionController>();
+                        partsConnectionController.Initialize(instantiatedItem.Ports[portIndex], connectedItem.Ports[portDTO.ConnectedPortIndex]);
                     }
                 }
             }

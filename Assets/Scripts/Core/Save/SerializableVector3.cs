@@ -5,7 +5,9 @@ namespace GiantLaserTest.Core.Save
     [System.Serializable]
     public struct SerializableVector3
     {
-        public float x, y, z;
+        public float x;
+        public float y;
+        public float z;
 
         public SerializableVector3(Vector3 vector3)
         {

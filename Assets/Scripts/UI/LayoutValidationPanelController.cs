@@ -8,21 +8,28 @@ using GiantLaserTest.Core.Library;
 using GiantLazerTest.App;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace GiantLaserTest.UI
 {
     public class LayoutValidationPanelController : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField]
         private TMP_Dropdown evaluationModeDropdown;
         [SerializeField]
         private GameObject validationMessagePrefab;
         [SerializeField]
         private Transform validationMessagesContainer;
+        [SerializeField]
+        private DeskController deskController;
+        [SerializeField, RequireInterface(typeof(ILayoutValidationProcessController))]
+        private UnityEngine.Object layoutValidationProcessControllerReference;
+
+        [Header("Parameters")]
         [SerializeField, RequireInterface(typeof(ILayoutValidator))]
         private UnityEngine.Object[] layoutValidatorsReference;
+        [SerializeField, RequireInterface(typeof(IEvaluator))]
+        private UnityEngine.Object[] layoutEvaluatorsReference;
         [SerializeField]
         private Material defaultMaterial;
         [SerializeField]
@@ -31,15 +38,8 @@ namespace GiantLaserTest.UI
         private Material errorMaterial;
         [SerializeField]
         private Material goodMaterial;
-        private ILayoutValidator[] layoutValidators;
-        private EvaluationMode[] evaluationModes;
-        [SerializeField, RequireInterface(typeof(ILayoutValidationProcessController))]
-        private UnityEngine.Object layoutValidationProcessControllerReference;
-        [SerializeField, RequireInterface(typeof(IEvaluator))]
-        private UnityEngine.Object[] layoutEvaluatorsReference;
-        [SerializeField]
-        private DeskController deskController;
 
+        private EvaluationMode[] evaluationModes;
         private ILayoutValidationProcessController layoutValidationProcessController;
         private IEvaluator[] layoutEvaluators;
         private IEvaluator activeEvaluator;
@@ -47,15 +47,17 @@ namespace GiantLaserTest.UI
         private void Awake()
         {
             layoutValidationProcessController = layoutValidationProcessControllerReference as ILayoutValidationProcessController;
-            layoutValidators = layoutValidatorsReference.OfType<ILayoutValidator>().ToArray();
             layoutEvaluators = layoutEvaluatorsReference.OfType<IEvaluator>().ToArray();
+
             evaluationModes = Enum.GetValues(typeof(EvaluationMode)) as EvaluationMode[];
+
             foreach (EvaluationMode mode in evaluationModes)
             {
                 evaluationModeDropdown.options.Add(new TMP_Dropdown.OptionData(mode.ToString()));
             }
+
             evaluationModeDropdown.onValueChanged.AddListener(OnEvaluationModeChanged);
-            layoutValidationProcessController.OnValidationCompleted += OnValidationCompleted;
+            layoutValidationProcessController.ValidationCompleted += OnValidationCompleted;
         }
 
         private void Start()
@@ -65,74 +67,29 @@ namespace GiantLaserTest.UI
             LoadEvaluationMode(modeIndex);
         }
 
-        private void OnEvaluationModeChanged(int arg0)
+        private void OnEvaluationModeChanged(int evaluationModeIndex)
         {
-            LoadEvaluationMode(arg0);
+            LoadEvaluationMode(evaluationModeIndex);
         }
 
-        private void LoadEvaluationMode(int value)
+        private void OnValidationCompleted(List<ValidationResult> validationResults)
         {
-            activeEvaluator?.Deactivate();
-            DestroyCurrentMessages();
-            var items = deskController.LibraryItems;
+            DestroyExistingMessages();
+            var libraryItems = deskController.LibraryItems;
+            CreateMessages(validationResults, out var errorItems, out var warningItems);
 
-            foreach (var item in items)
-            {
-                item.Renderer.sharedMaterial = defaultMaterial;
-            }
-
-            var selectedMode = evaluationModes[value];
-            var evaluatorToActivate = layoutEvaluators.First(x => x.Mode == selectedMode);
-            evaluatorToActivate.Activate(layoutValidationProcessController);
-            activeEvaluator = evaluatorToActivate;
-        }
-
-        private void OnApplicationQuit()
-        {
-            layoutValidationProcessController.OnValidationCompleted -= OnValidationCompleted;
-            activeEvaluator?.Deactivate();
-        }
-
-        private void OnValidationCompleted(ValidationResult[] validationResults)
-        {
-            DestroyCurrentMessages();
-            var items = deskController.LibraryItems;
-            List<ILibraryItem> errorItems = new List<ILibraryItem>();
-            List<ILibraryItem> warningItems = new List<ILibraryItem>();
-            bool anyWarnings = false;
-            bool anyErrors = false;
-            foreach (var result in validationResults)
-            {
-                foreach (var elementResult in result.ElementResults)
-                {
-                    var item = elementResult.RelatedItem;
-                    if (elementResult.ResultType == ElementValidationResultType.Error)
-                    {
-                        Instantiate(validationMessagePrefab, validationMessagesContainer).GetComponentInChildren<TextMeshProUGUI>().text = $"Error: {elementResult.Message}";
-                        errorItems.Add(item);
-                        anyErrors = true;
-                    }
-                    else if (elementResult.ResultType == ElementValidationResultType.Warning)
-                    {
-                        Instantiate(validationMessagePrefab, validationMessagesContainer).GetComponentInChildren<TextMeshProUGUI>().text = $"Warning: {elementResult.Message}";
-                        warningItems.Add(item);
-                        anyWarnings = true;
-                    }
-                }
-            }
-
-            if (!anyWarnings && !anyErrors)
+            if (warningItems.Count == 0 && errorItems.Count == 0)
             {
                 Instantiate(validationMessagePrefab, validationMessagesContainer).GetComponentInChildren<TextMeshProUGUI>().text = "Validation successful";
 
-                foreach (var item in items)
+                foreach (var item in libraryItems)
                 {
                     item.Renderer.sharedMaterial = goodMaterial;
                 }
             }
             else
             {
-                foreach (var item in items)
+                foreach (var item in libraryItems)
                 {
                     if (errorItems.Contains(item))
                     {
@@ -150,13 +107,61 @@ namespace GiantLaserTest.UI
             }
         }
 
-        private void DestroyCurrentMessages()
+        private void OnApplicationQuit()
+        {
+            evaluationModeDropdown.onValueChanged.RemoveListener(OnEvaluationModeChanged);
+            layoutValidationProcessController.ValidationCompleted -= OnValidationCompleted;
+            activeEvaluator?.Deactivate();
+        }
+
+        private void LoadEvaluationMode(int evaluationModeIndex)
+        {
+            activeEvaluator?.Deactivate();
+            DestroyExistingMessages();
+            var items = deskController.LibraryItems;
+
+            foreach (var item in items)
+            {
+                item.Renderer.sharedMaterial = defaultMaterial;
+            }
+
+            var selectedMode = evaluationModes[evaluationModeIndex];
+            var evaluatorToActivate = layoutEvaluators.First(x => x.Mode == selectedMode);
+            evaluatorToActivate.Activate(layoutValidationProcessController);
+            activeEvaluator = evaluatorToActivate;
+        }
+
+        private void DestroyExistingMessages()
         {
             int existingMessagesCount = validationMessagesContainer.childCount;
 
             for (int i = existingMessagesCount - 1; i >= 0; i--)
             {
                 Destroy(validationMessagesContainer.GetChild(i).gameObject);
+            }
+        }
+
+        private void CreateMessages(List<ValidationResult> validationResults, out List<ILibraryItem> itemsWithErrors, out List<ILibraryItem> itemsWithWarnings)
+        {
+            itemsWithErrors = new List<ILibraryItem>();
+            itemsWithWarnings = new List<ILibraryItem>();
+
+            foreach (var result in validationResults)
+            {
+                foreach (var elementResult in result.ElementResults)
+                {
+                    var item = elementResult.RelatedItem;
+                    if (elementResult.ResultType == ElementValidationResultType.Error)
+                    {
+                        Instantiate(validationMessagePrefab, validationMessagesContainer).GetComponentInChildren<TextMeshProUGUI>().text = $"Error: {elementResult.Message}";
+                        itemsWithErrors.Add(item);
+                    }
+                    else if (elementResult.ResultType == ElementValidationResultType.Warning)
+                    {
+                        Instantiate(validationMessagePrefab, validationMessagesContainer).GetComponentInChildren<TextMeshProUGUI>().text = $"Warning: {elementResult.Message}";
+                        itemsWithWarnings.Add(item);
+                    }
+                }
             }
         }
     }

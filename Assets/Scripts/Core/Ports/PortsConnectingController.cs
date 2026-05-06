@@ -1,47 +1,50 @@
-using System;
 using GiantLaserTest.Core.Desk;
 using GiantLaserTest.Core.Library;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace GiantLaserTest.Core.Ports
 {
-    public class PortConnectingController : MonoBehaviour
+    public class PortsConnectingController : MonoBehaviour
     {
-        [SerializeField]
-        private InputActionReference portClickAction;
+        [Header("References")]
         [SerializeField]
         private DeskController deskController;
+        [SerializeField]
+        private GameObject portsConnectionPrefab;
+
+        [Header("Parameters")]
+        [SerializeField]
+        private InputActionReference portClickInputAction;
 
         private Port currentPort;
-        [SerializeField]
-        private GameObject linePrefab;
 
         private void OnEnable()
         {
-            portClickAction.action.performed += OnPortClickInputPerformed;
+            portClickInputAction.action.performed += OnPortClickInputPerformed;
         }
 
         private void OnDisable()
         {
-            portClickAction.action.performed -= OnPortClickInputPerformed;
+            portClickInputAction.action.performed -= OnPortClickInputPerformed;
         }
 
         private void OnPortClickInputPerformed(InputAction.CallbackContext context)
         {
-            Vector2 screenPos = Mouse.current.position.ReadValue();
-            Ray ray = Camera.main.ScreenPointToRay(screenPos);
+            Vector2 screenPosition = Mouse.current.position.ReadValue();
+            Ray ray = Camera.main.ScreenPointToRay(screenPosition);
 
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 Port selectedPort = hit.collider.GetComponent<Port>();
-                if (selectedPort != null && selectedPort.connectedPort == null && deskController.LibraryItems.Contains(selectedPort.GetComponentInParent<ILibraryItem>()))
+                if (selectedPort != null &&
+                    selectedPort.connectedPort == null &&
+                    deskController.LibraryItems.Contains(selectedPort.GetComponentInParent<ILibraryItem>()))
                 {
                     if (currentPort != null && selectedPort.Type == PortType.Input)
                     {
-                        var currentLine = Instantiate(linePrefab).GetComponent<PortConnectionController>();
-                        currentLine.Initialize(currentPort, selectedPort);
+                        var instantiatedPortsConnection = Instantiate(portsConnectionPrefab).GetComponent<PortsConnectionController>();
+                        instantiatedPortsConnection.Initialize(currentPort, selectedPort);
                         currentPort = null;
                     }
                     else if (selectedPort.Type == PortType.Output)

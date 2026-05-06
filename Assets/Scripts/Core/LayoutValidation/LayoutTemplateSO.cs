@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GiantLaserTest.Core.LayoutValidation
@@ -6,6 +7,6 @@ namespace GiantLaserTest.Core.LayoutValidation
     public class LayoutTemplateSO : ScriptableObject
     {
         [field: SerializeField]
-        public LayoutTemplateElement[] TemplateElements { get; private set; }
+        public List<LayoutTemplateElement> TemplateElements { get; private set; }
     }
 }

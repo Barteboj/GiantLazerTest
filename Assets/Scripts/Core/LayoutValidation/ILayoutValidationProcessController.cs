@@ -1,11 +1,11 @@
 using System;
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace GiantLaserTest.Core.LayoutValidation
 {
     public interface ILayoutValidationProcessController
     {
-        event Action<ValidationResult[]> OnValidationCompleted;
+        event Action<List<ValidationResult>> ValidationCompleted;
         void ValidateLayout();
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GiantLaserTest.Core.Ports;
 using UnityEngine;
 
@@ -6,8 +7,7 @@ namespace GiantLaserTest.Core.Library
 {
     public class LibraryItem : MonoBehaviour, ILibraryItem
     {
-        public static event Action OnLibraryItemCreated;
-        public static event Action<LibraryItem> OnLibraryItemDestroyed;
+        public static event Action<LibraryItem> ItemDestroyed;
 
         [field: SerializeField]
         public LibraryItemType ItemType { get; private set; }
@@ -16,24 +16,18 @@ namespace GiantLaserTest.Core.Library
         [field: SerializeField]
         public LibraryCategory Category { get; private set; }
         [field: SerializeField]
+        public List<Port> Ports { get; private set; }
+        public GameObject GameObject => gameObject;
+        [field: SerializeField]
+        public Renderer Renderer { get; private set; }
+        [field: SerializeField]
         public float Size { get; private set; }
         [field: SerializeField]
         public Sprite Visualization { get; private set; }
-        [field: SerializeField]
-        public Port[] Ports { get; private set; }
-        [field: SerializeField]
-        public Renderer Renderer { get; private set; }
-
-        public GameObject GameObject => gameObject;
-
-        private void Awake()
-        {
-            OnLibraryItemCreated?.Invoke();
-        }
 
         private void OnDestroy()
         {
-            OnLibraryItemDestroyed?.Invoke(this);
+            ItemDestroyed?.Invoke(this);
         }
     }
 }

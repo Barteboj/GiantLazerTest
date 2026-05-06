@@ -10,7 +10,6 @@ namespace GiantLaserTest.Core.LayoutValidation
         public ValidationResult Validate(LayoutState state)
         {
             var result = new ValidationResult();
-            var elementResults = new List<ElementValidationResult>();
 
             foreach (var item in state.LibraryItems)
             {
@@ -20,18 +19,12 @@ namespace GiantLaserTest.Core.LayoutValidation
                     {
                         if (!port.CompatibleItems.Contains(port.connectedPort.GetComponentInParent<ILibraryItem>().ItemType) && !port.CompatibleCategories.Contains(port.connectedPort.GetComponentInParent<ILibraryItem>().Category))
                         {
-                            elementResults.Add(new ElementValidationResult
-                            {
-                                RelatedItem = item,
-                                ResultType = ElementValidationResultType.Error,
-                                Message = $"Port {port.PortName} cannot be connected to {port.connectedPort.GetComponentInParent<ILibraryItem>().ItemName}"
-                            });
+                            result.ElementResults.Add(new ElementValidationResult(ElementValidationResultType.Error, $"Port {port.PortName} cannot be connected to {port.connectedPort.GetComponentInParent<ILibraryItem>().ItemName}", item));
                         }
                     }
                 }
             }
 
-            result.ElementResults = elementResults.ToArray();
             return result;
         }
     }

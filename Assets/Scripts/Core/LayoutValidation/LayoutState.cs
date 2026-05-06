@@ -1,10 +1,15 @@
+using System.Collections.Generic;
 using GiantLaserTest.Core.Library;
-using UnityEngine;
 
 namespace GiantLaserTest.Core.LayoutValidation
 {
     public class LayoutState
     {
-        public ILibraryItem[] LibraryItems { get; set; }
+        public List<ILibraryItem> LibraryItems { get; private set; }
+
+        public LayoutState(List<ILibraryItem> libraryItems)
+        {
+            LibraryItems = libraryItems;
+        }
     }
 }

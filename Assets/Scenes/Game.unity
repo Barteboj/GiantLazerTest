@@ -1491,19 +1491,19 @@ MonoBehaviour:
   evaluationModeDropdown: {fileID: 2053072702}
   validationMessagePrefab: {fileID: 645935705218700889, guid: b4924c039168853479978a0353284753, type: 3}
   validationMessagesContainer: {fileID: 123501776}
+  deskController: {fileID: 871266718}
+  layoutValidationProcessControllerReference: {fileID: 479437495}
   layoutValidatorsReference:
   - {fileID: 479437491}
   - {fileID: 479437490}
   - {fileID: 479437492}
+  layoutEvaluatorsReference:
+  - {fileID: 479437494}
+  - {fileID: 479437493}
   defaultMaterial: {fileID: 2100000, guid: 73d65fe49181abf4bbb1373bb42e20e7, type: 2}
   warningMaterial: {fileID: 2100000, guid: 7bb3a2945f8de8f46b43a41e6d8b6598, type: 2}
   errorMaterial: {fileID: 2100000, guid: 891cbb9add2b1f545be46b7ef34d20e1, type: 2}
   goodMaterial: {fileID: 2100000, guid: 0ea89f6b38a4bd248bb11cb5d0ed9763, type: 2}
-  layoutValidationProcessControllerReference: {fileID: 479437495}
-  layoutEvaluatorsReference:
-  - {fileID: 479437494}
-  - {fileID: 479437493}
-  deskController: {fileID: 871266718}
 --- !u!114 &479437490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1579,11 +1579,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c4b99c749bf29b439a00adb45c3a159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core::LayoutValidationProcessController
+  deskController: {fileID: 871266718}
   layoutValidatorsReference:
   - {fileID: 479437491}
   - {fileID: 479437490}
   - {fileID: 479437492}
-  deskController: {fileID: 871266718}
 --- !u!1 &605903181
 GameObject:
   m_ObjectHideFlags: 0
@@ -2727,9 +2727,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aead745eebc48074bb163e68da245630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core::PortConnectingController
-  portClickAction: {fileID: -4645159302319974513, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   deskController: {fileID: 871266718}
-  linePrefab: {fileID: 247709356122728435, guid: acc65cd71b562c849baba17f217988ab, type: 3}
+  portsConnectionPrefab: {fileID: 247709356122728435, guid: acc65cd71b562c849baba17f217988ab, type: 3}
+  portClickInputAction: {fileID: -4645159302319974513, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!4 &982478993
 Transform:
   m_ObjectHideFlags: 0
@@ -4469,6 +4469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5157d61c673fc2419d19fdbcf339ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core::LayoutSaveController
+  deskController: {fileID: 871266718}
   libraryItemPrefabs:
   - {fileID: 2151759715702617769, guid: 7b1bcdd79e64ae04c970299589fd5ab6, type: 3}
   - {fileID: 2151759715702617769, guid: 8f5229a4ac35d1645bb603b893299702, type: 3}
@@ -4477,7 +4478,6 @@ MonoBehaviour:
   - {fileID: 2151759715702617769, guid: 1e848d536f2178c49af9d1ee87409626, type: 3}
   - {fileID: 2151759715702617769, guid: f1d2930c957cfeb45babbaecd3d6e89e, type: 3}
   portsConnectionPrefab: {fileID: 247709356122728435, guid: acc65cd71b562c849baba17f217988ab, type: 3}
-  deskController: {fileID: 871266718}
 --- !u!1 &1666549011
 GameObject:
   m_ObjectHideFlags: 0

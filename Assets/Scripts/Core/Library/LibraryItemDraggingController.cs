@@ -8,37 +8,34 @@ namespace GiantLaserTest.Core.Library
     {
         public static event Action<LibraryItemDraggingController> OnDraggingEnded;
 
+        [Header("References")]
         [SerializeField]
         private Transform draggedTransform;
 
-        private Camera mainCamera;
-        private Vector3 offset;
         private float zCoord;
-
-        void Awake() => mainCamera = Camera.main;
+        private Vector3 offset;
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            zCoord = mainCamera.WorldToScreenPoint(draggedTransform.position).z;
-
-            Vector3 mouseWorldPos = GetMouseWorldPos(eventData.position);
-            offset = draggedTransform.position - mouseWorldPos;
+            zCoord = Camera.main.WorldToScreenPoint(draggedTransform.position).z;
+            Vector3 mouseWorldPosition = GetWorldPosition(eventData.position);
+            offset = draggedTransform.position - mouseWorldPosition;
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            draggedTransform.position = GetMouseWorldPos(eventData.position) + offset;
-        }
-
-        private Vector3 GetMouseWorldPos(Vector2 screenPosition)
-        {
-            Vector3 screenPosWithZ = new Vector3(screenPosition.x, screenPosition.y, zCoord);
-            return mainCamera.ScreenToWorldPoint(screenPosWithZ);
+            draggedTransform.position = GetWorldPosition(eventData.position) + offset;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
             OnDraggingEnded?.Invoke(this);
+        }
+
+        private Vector3 GetWorldPosition(Vector2 screenPosition)
+        {
+            Vector3 screenPositionWithZ = new Vector3(screenPosition.x, screenPosition.y, zCoord);
+            return Camera.main.ScreenToWorldPoint(screenPositionWithZ);
         }
     }
 }
