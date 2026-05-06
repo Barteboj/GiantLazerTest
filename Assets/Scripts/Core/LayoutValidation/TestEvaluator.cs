@@ -2,28 +2,31 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestEvaluator : MonoBehaviour, IEvaluator
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    public EvaluationMode Mode => EvaluationMode.Test;
-
-    [SerializeField]
-    private Button evaluateButton;
-
-    private ILayoutValidationProcessController processController;
-
-    public void Activate(ILayoutValidationProcessController processController)
+    public class TestEvaluator : MonoBehaviour, IEvaluator
     {
-        this.processController = processController;
-        evaluateButton.onClick.AddListener(OnEvaluateButtonClicked);
-    }
+        public EvaluationMode Mode => EvaluationMode.Test;
 
-    public void Deactivate()
-    {
-        evaluateButton.onClick.RemoveListener(OnEvaluateButtonClicked);
-    }
+        [SerializeField]
+        private Button evaluateButton;
 
-    private void OnEvaluateButtonClicked()
-    {
-        processController.ValidateLayout();
+        private ILayoutValidationProcessController processController;
+
+        public void Activate(ILayoutValidationProcessController processController)
+        {
+            this.processController = processController;
+            evaluateButton.onClick.AddListener(OnEvaluateButtonClicked);
+        }
+
+        public void Deactivate()
+        {
+            evaluateButton.onClick.RemoveListener(OnEvaluateButtonClicked);
+        }
+
+        private void OnEvaluateButtonClicked()
+        {
+            processController.ValidateLayout();
+        }
     }
 }

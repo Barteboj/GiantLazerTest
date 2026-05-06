@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public enum EvaluationMode
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    Learning = 0,
-    Test = 1
+    public enum EvaluationMode
+    {
+        Learning = 0,
+        Test = 1
+    }
 }

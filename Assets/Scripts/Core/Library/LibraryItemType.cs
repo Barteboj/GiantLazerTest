@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public enum LibraryItemType
+namespace GiantLaserTest.Core.Library
 {
-    RawMaterialTankA = 0,
-    RawMaterialTankB = 1,
-    InitialFilter = 2,
-    Mixer = 3,
-    Heater = 4,
-    Packager = 5
+    public enum LibraryItemType
+    {
+        RawMaterialTankA = 0,
+        RawMaterialTankB = 1,
+        InitialFilter = 2,
+        Mixer = 3,
+        Heater = 4,
+        Packager = 5
+    }
 }

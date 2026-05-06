@@ -1,11 +1,15 @@
 using System;
+using GiantLaserTest.Core.Library;
 using UnityEngine;
 
-[Serializable]
-public class LayoutTemplateElement
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    [field: SerializeField]
-    public LibraryItemType LibraryItemType { get; private set; }
-    [field: SerializeField]
-    public LibraryItemType[] OutputPortsConnectedItems { get; private set; }
+    [Serializable]
+    public class LayoutTemplateElement
+    {
+        [field: SerializeField]
+        public LibraryItemType LibraryItemType { get; private set; }
+        [field: SerializeField]
+        public LibraryItemType[] OutputPortsConnectedItems { get; private set; }
+    }
 }

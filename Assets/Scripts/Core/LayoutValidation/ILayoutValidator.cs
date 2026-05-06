@@ -1,4 +1,7 @@
-public interface ILayoutValidator
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    ValidationResult Validate(LayoutState state);
+    public interface ILayoutValidator
+    {
+        ValidationResult Validate(LayoutState state);
+    }
 }

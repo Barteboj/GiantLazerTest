@@ -1,12 +1,16 @@
 using System;
+using GiantLaserTest.Core.Ports;
 using UnityEngine;
 
-public interface ILibraryItem
+namespace GiantLaserTest.Core.Library
 {
-    GameObject GameObject { get; }
-    string ItemName { get; }
-    Port[] Ports { get; }
-    LibraryItemType ItemType { get; }
-    LibraryCategory Category { get; }
-    Renderer Renderer { get; }
+    public interface ILibraryItem
+    {
+        GameObject GameObject { get; }
+        string ItemName { get; }
+        Port[] Ports { get; }
+        LibraryItemType ItemType { get; }
+        LibraryCategory Category { get; }
+        Renderer Renderer { get; }
+    }
 }

@@ -1,38 +1,43 @@
 using System;
+using GiantLaserTest.Core.LayoutValidation;
+using GiantLazerTest.App;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartMenuController : MonoBehaviour
+namespace GiantLaserTest.UI
 {
-    [SerializeField]
-    private TMP_Dropdown evaluationModeDropdown;
-    [SerializeField]
-    private Button startGameButton;
-    private EvaluationMode[] evaluationModes;
-
-    private void Awake()
+    public class StartMenuController : MonoBehaviour
     {
-        evaluationModes = Enum.GetValues(typeof(EvaluationMode)) as EvaluationMode[];
-        foreach (EvaluationMode mode in evaluationModes)
+        [SerializeField]
+        private TMP_Dropdown evaluationModeDropdown;
+        [SerializeField]
+        private Button startGameButton;
+        private EvaluationMode[] evaluationModes;
+
+        private void Awake()
         {
-            evaluationModeDropdown.options.Add(new TMP_Dropdown.OptionData(mode.ToString()));
+            evaluationModes = Enum.GetValues(typeof(EvaluationMode)) as EvaluationMode[];
+            foreach (EvaluationMode mode in evaluationModes)
+            {
+                evaluationModeDropdown.options.Add(new TMP_Dropdown.OptionData(mode.ToString()));
+            }
         }
-    }
 
-    private void OnEnable()
-    {
-        startGameButton.onClick.AddListener(OnStartGameButtonClicked);
-    }
+        private void OnEnable()
+        {
+            startGameButton.onClick.AddListener(OnStartGameButtonClicked);
+        }
 
-    private void OnDisable()
-    {
-        startGameButton.onClick.RemoveListener(OnStartGameButtonClicked);
-    }
+        private void OnDisable()
+        {
+            startGameButton.onClick.RemoveListener(OnStartGameButtonClicked);
+        }
 
-    private void OnStartGameButtonClicked()
-    {
-        GameController.Instance.SetupStartingEvaluationMode(evaluationModes[evaluationModeDropdown.value]);
-        GameController.Instance.LoadGame();
+        private void OnStartGameButtonClicked()
+        {
+            GameController.Instance.SetupStartingEvaluationMode(evaluationModes[evaluationModeDropdown.value]);
+            GameController.Instance.LoadGame();
+        }
     }
 }

@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public interface IEvaluator
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    EvaluationMode Mode { get; }
-    void Activate(ILayoutValidationProcessController processController);
-    void Deactivate();
+    public interface IEvaluator
+    {
+        EvaluationMode Mode { get; }
+        void Activate(ILayoutValidationProcessController processController);
+        void Deactivate();
+    }
 }

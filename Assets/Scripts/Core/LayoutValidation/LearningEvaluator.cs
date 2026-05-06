@@ -1,37 +1,42 @@
 using System.Collections;
+using GiantLaserTest.Core.Desk;
+using GiantLaserTest.Core.Ports;
 using UnityEngine;
 
-public class LearningEvaluator : MonoBehaviour, IEvaluator
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    public EvaluationMode Mode => EvaluationMode.Learning;
-
-    [SerializeField]
-    private DeskController deskController;
-
-    private ILayoutValidationProcessController processController;
-
-    public void Activate(ILayoutValidationProcessController processController)
+    public class LearningEvaluator : MonoBehaviour, IEvaluator
     {
-        this.processController = processController;
+        public EvaluationMode Mode => EvaluationMode.Learning;
 
-        deskController.OnLibraryItemAdded += OnLayoutChanged;
-        deskController.OnLibraryItemRemoved += OnLayoutChanged;
-        PortConnectionController.OnConnectionCreated += OnLayoutChanged;
-        PortConnectionController.OnConnectionDestroyed += OnLayoutChanged;
+        [SerializeField]
+        private DeskController deskController;
 
-        processController.ValidateLayout();
-    }
+        private ILayoutValidationProcessController processController;
 
-    public void Deactivate()
-    {
-        deskController.OnLibraryItemAdded -= OnLayoutChanged;
-        deskController.OnLibraryItemRemoved -= OnLayoutChanged;
-        PortConnectionController.OnConnectionCreated -= OnLayoutChanged;
-        PortConnectionController.OnConnectionDestroyed -= OnLayoutChanged;
-    }
+        public void Activate(ILayoutValidationProcessController processController)
+        {
+            this.processController = processController;
 
-    private void OnLayoutChanged()
-    {
-        processController.ValidateLayout();
+            deskController.OnLibraryItemAdded += OnLayoutChanged;
+            deskController.OnLibraryItemRemoved += OnLayoutChanged;
+            PortConnectionController.OnConnectionCreated += OnLayoutChanged;
+            PortConnectionController.OnConnectionDestroyed += OnLayoutChanged;
+
+            processController.ValidateLayout();
+        }
+
+        public void Deactivate()
+        {
+            deskController.OnLibraryItemAdded -= OnLayoutChanged;
+            deskController.OnLibraryItemRemoved -= OnLayoutChanged;
+            PortConnectionController.OnConnectionCreated -= OnLayoutChanged;
+            PortConnectionController.OnConnectionDestroyed -= OnLayoutChanged;
+        }
+
+        private void OnLayoutChanged()
+        {
+            processController.ValidateLayout();
+        }
     }
 }

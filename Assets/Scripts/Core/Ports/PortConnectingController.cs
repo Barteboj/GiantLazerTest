@@ -1,53 +1,58 @@
 using System;
+using GiantLaserTest.Core.Desk;
+using GiantLaserTest.Core.Library;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PortConnectingController : MonoBehaviour
+namespace GiantLaserTest.Core.Ports
 {
-    [SerializeField]
-    private InputActionReference portClickAction;
-    [SerializeField]
-    private DeskController deskController;
-
-    private Port currentPort;
-    [SerializeField]
-    private GameObject linePrefab;
-
-    private void OnEnable()
+    public class PortConnectingController : MonoBehaviour
     {
-        portClickAction.action.performed += OnPortClickInputPerformed;
-    }
+        [SerializeField]
+        private InputActionReference portClickAction;
+        [SerializeField]
+        private DeskController deskController;
 
-    private void OnDisable()
-    {
-        portClickAction.action.performed -= OnPortClickInputPerformed;
-    }
+        private Port currentPort;
+        [SerializeField]
+        private GameObject linePrefab;
 
-    private void OnPortClickInputPerformed(InputAction.CallbackContext context)
-    {
-        Vector2 screenPos = Mouse.current.position.ReadValue();
-        Ray ray = Camera.main.ScreenPointToRay(screenPos);
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        private void OnEnable()
         {
-            Port selectedPort = hit.collider.GetComponent<Port>();
-            if (selectedPort != null && selectedPort.connectedPort == null && deskController.LibraryItems.Contains(selectedPort.GetComponentInParent<ILibraryItem>()))
+            portClickAction.action.performed += OnPortClickInputPerformed;
+        }
+
+        private void OnDisable()
+        {
+            portClickAction.action.performed -= OnPortClickInputPerformed;
+        }
+
+        private void OnPortClickInputPerformed(InputAction.CallbackContext context)
+        {
+            Vector2 screenPos = Mouse.current.position.ReadValue();
+            Ray ray = Camera.main.ScreenPointToRay(screenPos);
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                if (currentPort != null && selectedPort.Type == PortType.Input)
+                Port selectedPort = hit.collider.GetComponent<Port>();
+                if (selectedPort != null && selectedPort.connectedPort == null && deskController.LibraryItems.Contains(selectedPort.GetComponentInParent<ILibraryItem>()))
                 {
-                    var currentLine = Instantiate(linePrefab).GetComponent<PortConnectionController>();
-                    currentLine.Initialize(currentPort, selectedPort);
+                    if (currentPort != null && selectedPort.Type == PortType.Input)
+                    {
+                        var currentLine = Instantiate(linePrefab).GetComponent<PortConnectionController>();
+                        currentLine.Initialize(currentPort, selectedPort);
+                        currentPort = null;
+                    }
+                    else if (selectedPort.Type == PortType.Output)
+                    {
+                        currentPort = selectedPort;
+                    }
+                }
+                else
+                {
                     currentPort = null;
                 }
-                else if (selectedPort.Type == PortType.Output)
-                {
-                    currentPort = selectedPort;
-                }
-            }
-            else
-            {
-                currentPort = null;
             }
         }
     }

@@ -1,6 +1,9 @@
-public enum LibraryCategory
+namespace GiantLaserTest.Core.Library
 {
-    Source = 0,
-    Processing = 1,
-    Final = 2
+    public enum LibraryCategory
+    {
+        Source = 0,
+        Processing = 1,
+        Final = 2
+    }
 }

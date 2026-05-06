@@ -1,36 +1,41 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GiantLaserTest.Attributes;
+using GiantLaserTest.Core.Desk;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LayoutValidationProcessController : MonoBehaviour, ILayoutValidationProcessController
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    public event Action<ValidationResult[]> OnValidationCompleted;
-
-    [SerializeField, RequireInterface(typeof(ILayoutValidator))]
-    private UnityEngine.Object[] layoutValidatorsReference;
-    [SerializeField]
-    private DeskController deskController;
-
-    private ILayoutValidator[] layoutValidators;
-
-    private void Awake()
+    public class LayoutValidationProcessController : MonoBehaviour, ILayoutValidationProcessController
     {
-        layoutValidators = layoutValidatorsReference.OfType<ILayoutValidator>().ToArray();
-    }
+        public event Action<ValidationResult[]> OnValidationCompleted;
 
-    public void ValidateLayout()
-    {
-        List<ValidationResult> validationResults = new List<ValidationResult>();
-        LayoutState layoutState = new LayoutState { LibraryItems = deskController.LibraryItems.ToArray() };
+        [SerializeField, RequireInterface(typeof(ILayoutValidator))]
+        private UnityEngine.Object[] layoutValidatorsReference;
+        [SerializeField]
+        private DeskController deskController;
 
-        foreach (var validator in layoutValidators)
+        private ILayoutValidator[] layoutValidators;
+
+        private void Awake()
         {
-            var result = validator.Validate(layoutState);
-            validationResults.Add(result);
+            layoutValidators = layoutValidatorsReference.OfType<ILayoutValidator>().ToArray();
         }
 
-        OnValidationCompleted?.Invoke(validationResults.ToArray());
+        public void ValidateLayout()
+        {
+            List<ValidationResult> validationResults = new List<ValidationResult>();
+            LayoutState layoutState = new LayoutState { LibraryItems = deskController.LibraryItems.ToArray() };
+
+            foreach (var validator in layoutValidators)
+            {
+                var result = validator.Validate(layoutState);
+                validationResults.Add(result);
+            }
+
+            OnValidationCompleted?.Invoke(validationResults.ToArray());
+        }
     }
 }

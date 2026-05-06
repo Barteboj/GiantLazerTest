@@ -1,8 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LayoutTemplateSO", menuName = "ScriptableObjects/LayoutTemplateSO", order = 0)]
-public class LayoutTemplateSO : ScriptableObject
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    [field: SerializeField]
-    public LayoutTemplateElement[] TemplateElements { get; private set; }
+    [CreateAssetMenu(fileName = "LayoutTemplateSO", menuName = "ScriptableObjects/LayoutTemplateSO", order = 0)]
+    public class LayoutTemplateSO : ScriptableObject
+    {
+        [field: SerializeField]
+        public LayoutTemplateElement[] TemplateElements { get; private set; }
+    }
 }

@@ -1,16 +1,19 @@
 using UnityEngine;
 
-[System.Serializable]
-public struct SerializableVector3
+namespace GiantLaserTest.Core.Save
 {
-    public float x, y, z;
-
-    public SerializableVector3(Vector3 vector3)
+    [System.Serializable]
+    public struct SerializableVector3
     {
-        x = vector3.x;
-        y = vector3.y;
-        z = vector3.z;
-    }
+        public float x, y, z;
 
-    public Vector3 ToVector3() => new Vector3(x, y, z);
+        public SerializableVector3(Vector3 vector3)
+        {
+            x = vector3.x;
+            y = vector3.y;
+            z = vector3.z;
+        }
+
+        public Vector3 ToVector3() => new Vector3(x, y, z);
+    }
 }

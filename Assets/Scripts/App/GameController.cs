@@ -1,29 +1,33 @@
 using System;
+using GiantLaserTest.Core.LayoutValidation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//made to have anything in App assembly definition
-public class GameController : MonoBehaviour
+namespace GiantLazerTest.App
 {
-    [SerializeField]
-    private int gameSceneBuildIndex;
-    public EvaluationMode StartingEvaluationMode { get; private set; }
-
-    public static GameController Instance { get; private set; }
-
-    private void Awake()
+    //made to have anything in App assembly definition
+    public class GameController : MonoBehaviour
     {
-        DontDestroyOnLoad(gameObject.transform.root.gameObject);
-        Instance = this;
-    }
+        [SerializeField]
+        private int gameSceneBuildIndex;
+        public EvaluationMode StartingEvaluationMode { get; private set; }
 
-    public void SetupStartingEvaluationMode(EvaluationMode mode)
-    {
-        StartingEvaluationMode = mode;
-    }
+        public static GameController Instance { get; private set; }
 
-    public void LoadGame()
-    {
-        SceneManager.LoadScene(gameSceneBuildIndex);
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject.transform.root.gameObject);
+            Instance = this;
+        }
+
+        public void SetupStartingEvaluationMode(EvaluationMode mode)
+        {
+            StartingEvaluationMode = mode;
+        }
+
+        public void LoadGame()
+        {
+            SceneManager.LoadScene(gameSceneBuildIndex);
+        }
     }
 }

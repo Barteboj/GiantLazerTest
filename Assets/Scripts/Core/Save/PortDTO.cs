@@ -1,7 +1,11 @@
+using GiantLaserTest.Core.Library;
 using UnityEngine;
 
-public class PortDTO
+namespace GiantLaserTest.Core.Save
 {
-    public LibraryItemType ConnectedItemType { get; set; }
-    public int ConnectedPortIndex { get; set; }
+    public class PortDTO
+    {
+        public LibraryItemType ConnectedItemType { get; set; }
+        public int ConnectedPortIndex { get; set; }
+    }
 }

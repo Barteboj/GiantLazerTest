@@ -1,38 +1,42 @@
 using System;
+using GiantLaserTest.Core.Library;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LibraryItemButtonController : MonoBehaviour
+namespace GiantLaserTest.UI
 {
-    [field: SerializeField]
-    public TextMeshProUGUI DescriptionText { get; private set; }
-
-    [SerializeField]
-    private Button button;
-
-    private ILibraryItem itemPrefab;
-    private Vector3 spawnPosition;
-
-    private void OnEnable()
+    public class LibraryItemButtonController : MonoBehaviour
     {
-        button.onClick.AddListener(OnButtonClicked);
-    }
+        [field: SerializeField]
+        public TextMeshProUGUI DescriptionText { get; private set; }
 
-    private void OnDisable()
-    {
-        button.onClick.RemoveListener(OnButtonClicked);
-    }
+        [SerializeField]
+        private Button button;
 
-    private void OnButtonClicked()
-    {
-        Instantiate(itemPrefab.GameObject, spawnPosition, Quaternion.identity);
-    }
+        private ILibraryItem itemPrefab;
+        private Vector3 spawnPosition;
 
-    public void Initialize(ILibraryItem itemPrefab, Vector3 position)
-    {
-        this.itemPrefab = itemPrefab;
-        DescriptionText.text = $"{this.itemPrefab.ItemName} {this.itemPrefab.Category}";
-        spawnPosition = position;
+        private void OnEnable()
+        {
+            button.onClick.AddListener(OnButtonClicked);
+        }
+
+        private void OnDisable()
+        {
+            button.onClick.RemoveListener(OnButtonClicked);
+        }
+
+        private void OnButtonClicked()
+        {
+            Instantiate(itemPrefab.GameObject, spawnPosition, Quaternion.identity);
+        }
+
+        public void Initialize(ILibraryItem itemPrefab, Vector3 position)
+        {
+            this.itemPrefab = itemPrefab;
+            DescriptionText.text = $"{this.itemPrefab.ItemName} {this.itemPrefab.Category}";
+            spawnPosition = position;
+        }
     }
 }

@@ -1,8 +1,12 @@
+using GiantLaserTest.Core.Library;
 using UnityEngine;
 
-public class ElementValidationResult
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    public ElementValidationResultType ResultType { get; set; }
-    public string Message { get; set; }
-    public ILibraryItem RelatedItem { get; set; }
+    public class ElementValidationResult
+    {
+        public ElementValidationResultType ResultType { get; set; }
+        public string Message { get; set; }
+        public ILibraryItem RelatedItem { get; set; }
+    }
 }

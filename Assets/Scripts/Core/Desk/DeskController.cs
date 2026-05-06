@@ -1,63 +1,67 @@
 using System;
 using System.Collections.Generic;
+using GiantLaserTest.Core.Library;
 using UnityEngine;
 
-public class DeskController : MonoBehaviour, IDeskController
+namespace GiantLaserTest.Core.Desk
 {
-    public event Action OnLibraryItemAdded;
-    public event Action OnLibraryItemRemoved;
-
-    [SerializeField]
-    private float MaxSnappingDistance = 1f;
-    [SerializeField]
-    private LayerMask snapLayer;
-
-    public List<ILibraryItem> LibraryItems { get; private set; } = new List<ILibraryItem>();
-
-    private void OnEnable()
+    public class DeskController : MonoBehaviour
     {
-        LibraryItemDraggingController.OnDraggingEnded += OnLibraryItemDraggingEnded;
-        LibraryItem.OnLibraryItemDestroyed += OnLibraryItemDestroyed;
-    }
+        public event Action OnLibraryItemAdded;
+        public event Action OnLibraryItemRemoved;
 
-    private void OnDisable()
-    {
-        LibraryItemDraggingController.OnDraggingEnded -= OnLibraryItemDraggingEnded;
-        LibraryItem.OnLibraryItemDestroyed -= OnLibraryItemDestroyed;
-    }
+        [SerializeField]
+        private float MaxSnappingDistance = 1f;
+        [SerializeField]
+        private LayerMask snapLayer;
 
-    private void OnLibraryItemDestroyed(LibraryItem item)
-    {
-        bool hasBeenOnDesk = LibraryItems.Remove(item);
-        if (hasBeenOnDesk)
+        public List<ILibraryItem> LibraryItems { get; private set; } = new List<ILibraryItem>();
+
+        private void OnEnable()
         {
-            OnLibraryItemRemoved?.Invoke();
+            LibraryItemDraggingController.OnDraggingEnded += OnLibraryItemDraggingEnded;
+            LibraryItem.OnLibraryItemDestroyed += OnLibraryItemDestroyed;
         }
-    }
 
-    private void OnLibraryItemDraggingEnded(LibraryItemDraggingController controller)
-    {
-        var libraryItem = controller.GetComponentInParent<LibraryItem>();
-        if (Physics.Raycast(libraryItem.transform.position, -transform.up, out RaycastHit hit, MaxSnappingDistance, snapLayer))
+        private void OnDisable()
         {
-            libraryItem.transform.position = hit.point;
-            RegisterLibraryItem(libraryItem);
+            LibraryItemDraggingController.OnDraggingEnded -= OnLibraryItemDraggingEnded;
+            LibraryItem.OnLibraryItemDestroyed -= OnLibraryItemDestroyed;
         }
-    }
 
-    public void RegisterLibraryItem(LibraryItem item)
-    {
-        if (!LibraryItems.Contains(item))
+        private void OnLibraryItemDestroyed(LibraryItem item)
         {
-            item.GetComponentInChildren<LibraryItemDraggingController>().enabled = false;
-            LibraryItems.Add(item);
-            OnLibraryItemAdded?.Invoke();
+            bool hasBeenOnDesk = LibraryItems.Remove(item);
+            if (hasBeenOnDesk)
+            {
+                OnLibraryItemRemoved?.Invoke();
+            }
         }
-    }
 
-    public void RemoveLibraryItem(LibraryItem item)
-    {
-        LibraryItems.Remove(item);
-        Destroy(item.gameObject);
+        private void OnLibraryItemDraggingEnded(LibraryItemDraggingController controller)
+        {
+            var libraryItem = controller.GetComponentInParent<LibraryItem>();
+            if (Physics.Raycast(libraryItem.transform.position, -transform.up, out RaycastHit hit, MaxSnappingDistance, snapLayer))
+            {
+                libraryItem.transform.position = hit.point;
+                RegisterLibraryItem(libraryItem);
+            }
+        }
+
+        public void RegisterLibraryItem(LibraryItem item)
+        {
+            if (!LibraryItems.Contains(item))
+            {
+                item.GetComponentInChildren<LibraryItemDraggingController>().enabled = false;
+                LibraryItems.Add(item);
+                OnLibraryItemAdded?.Invoke();
+            }
+        }
+
+        public void RemoveLibraryItem(LibraryItem item)
+        {
+            LibraryItems.Remove(item);
+            Destroy(item.gameObject);
+        }
     }
 }

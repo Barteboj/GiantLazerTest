@@ -2,40 +2,43 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class LibraryItemDraggingController : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+namespace GiantLaserTest.Core.Library
 {
-    public static event Action<LibraryItemDraggingController> OnDraggingEnded;
-
-    [SerializeField]
-    private Transform draggedTransform;
-
-    private Camera mainCamera;
-    private Vector3 offset;
-    private float zCoord;
-
-    void Awake() => mainCamera = Camera.main;
-
-    public void OnBeginDrag(PointerEventData eventData)
+    public class LibraryItemDraggingController : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        zCoord = mainCamera.WorldToScreenPoint(draggedTransform.position).z;
+        public static event Action<LibraryItemDraggingController> OnDraggingEnded;
 
-        Vector3 mouseWorldPos = GetMouseWorldPos(eventData.position);
-        offset = draggedTransform.position - mouseWorldPos;
-    }
+        [SerializeField]
+        private Transform draggedTransform;
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        draggedTransform.position = GetMouseWorldPos(eventData.position) + offset;
-    }
+        private Camera mainCamera;
+        private Vector3 offset;
+        private float zCoord;
 
-    private Vector3 GetMouseWorldPos(Vector2 screenPosition)
-    {
-        Vector3 screenPosWithZ = new Vector3(screenPosition.x, screenPosition.y, zCoord);
-        return mainCamera.ScreenToWorldPoint(screenPosWithZ);
-    }
+        void Awake() => mainCamera = Camera.main;
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        OnDraggingEnded?.Invoke(this);
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            zCoord = mainCamera.WorldToScreenPoint(draggedTransform.position).z;
+
+            Vector3 mouseWorldPos = GetMouseWorldPos(eventData.position);
+            offset = draggedTransform.position - mouseWorldPos;
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            draggedTransform.position = GetMouseWorldPos(eventData.position) + offset;
+        }
+
+        private Vector3 GetMouseWorldPos(Vector2 screenPosition)
+        {
+            Vector3 screenPosWithZ = new Vector3(screenPosition.x, screenPosition.y, zCoord);
+            return mainCamera.ScreenToWorldPoint(screenPosWithZ);
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            OnDraggingEnded?.Invoke(this);
+        }
     }
 }

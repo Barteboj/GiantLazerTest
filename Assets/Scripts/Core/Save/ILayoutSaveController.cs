@@ -1,5 +1,8 @@
-public interface ILayoutSaveController
+namespace GiantLaserTest.Core.Save
 {
-    void SaveLayout();
-    void LoadLayout();
+    public interface ILayoutSaveController
+    {
+        void SaveLayout();
+        void LoadLayout();
+    }
 }

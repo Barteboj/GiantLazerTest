@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class ValidationResult
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    public ElementValidationResult[] ElementResults { get; set; }
+    public class ValidationResult
+    {
+        public ElementValidationResult[] ElementResults { get; set; }
+    }
 }

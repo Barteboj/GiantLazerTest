@@ -1,33 +1,38 @@
 using System.Collections.Generic;
+using GiantLaserTest.Core.Library;
+using GiantLaserTest.Core.Ports;
 using UnityEngine;
 
-public class LayoutPortsConnectionCompatibilityValidator : MonoBehaviour, ILayoutValidator
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    public ValidationResult Validate(LayoutState state)
+    public class LayoutPortsConnectionCompatibilityValidator : MonoBehaviour, ILayoutValidator
     {
-        var result = new ValidationResult();
-        var elementResults = new List<ElementValidationResult>();
-
-        foreach (var item in state.LibraryItems)
+        public ValidationResult Validate(LayoutState state)
         {
-            foreach (var port in item.Ports)
+            var result = new ValidationResult();
+            var elementResults = new List<ElementValidationResult>();
+
+            foreach (var item in state.LibraryItems)
             {
-                if (port.Type == PortType.Output && port.connectedPort != null)
+                foreach (var port in item.Ports)
                 {
-                    if (!port.CompatibleItems.Contains(port.connectedPort.GetComponentInParent<ILibraryItem>().ItemType) && !port.CompatibleCategories.Contains(port.connectedPort.GetComponentInParent<ILibraryItem>().Category))
+                    if (port.Type == PortType.Output && port.connectedPort != null)
                     {
-                        elementResults.Add(new ElementValidationResult
+                        if (!port.CompatibleItems.Contains(port.connectedPort.GetComponentInParent<ILibraryItem>().ItemType) && !port.CompatibleCategories.Contains(port.connectedPort.GetComponentInParent<ILibraryItem>().Category))
                         {
-                            RelatedItem = item,
-                            ResultType = ElementValidationResultType.Error,
-                            Message = $"Port {port.PortName} cannot be connected to {port.connectedPort.GetComponentInParent<ILibraryItem>().ItemName}"
-                        });
+                            elementResults.Add(new ElementValidationResult
+                            {
+                                RelatedItem = item,
+                                ResultType = ElementValidationResultType.Error,
+                                Message = $"Port {port.PortName} cannot be connected to {port.connectedPort.GetComponentInParent<ILibraryItem>().ItemName}"
+                            });
+                        }
                     }
                 }
             }
-        }
 
-        result.ElementResults = elementResults.ToArray();
-        return result;
+            result.ElementResults = elementResults.ToArray();
+            return result;
+        }
     }
 }

@@ -1,12 +1,15 @@
 using UnityEngine;
 using System;
 
-public class RequireInterfaceAttribute : PropertyAttribute
+namespace GiantLaserTest.Attributes
 {
-    public Type InterfaceType { get; private set; }
-
-    public RequireInterfaceAttribute(Type interfaceType)
+    public class RequireInterfaceAttribute : PropertyAttribute
     {
-        InterfaceType = interfaceType;
+        public Type InterfaceType { get; private set; }
+
+        public RequireInterfaceAttribute(Type interfaceType)
+        {
+            InterfaceType = interfaceType;
+        }
     }
 }

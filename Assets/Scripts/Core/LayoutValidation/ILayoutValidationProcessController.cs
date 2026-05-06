@@ -1,8 +1,11 @@
 using System;
 using UnityEngine;
 
-public interface ILayoutValidationProcessController
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    event Action<ValidationResult[]> OnValidationCompleted;
-    void ValidateLayout();
+    public interface ILayoutValidationProcessController
+    {
+        event Action<ValidationResult[]> OnValidationCompleted;
+        void ValidateLayout();
+    }
 }

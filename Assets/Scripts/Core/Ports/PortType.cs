@@ -1,5 +1,8 @@
-public enum PortType
+namespace GiantLaserTest.Core.Ports
 {
-    Input = 0,
-    Output = 1
+    public enum PortType
+    {
+        Input = 0,
+        Output = 1
+    }
 }

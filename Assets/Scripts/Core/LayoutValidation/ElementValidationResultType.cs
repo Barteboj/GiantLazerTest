@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public enum ElementValidationResultType
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    Error,
-    Warning
+    public enum ElementValidationResultType
+    {
+        Error,
+        Warning
+    }
 }

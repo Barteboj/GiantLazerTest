@@ -1,6 +1,10 @@
+using GiantLaserTest.Core.Library;
 using UnityEngine;
 
-public class LayoutState
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    public ILibraryItem[] LibraryItems { get; set; }
+    public class LayoutState
+    {
+        public ILibraryItem[] LibraryItems { get; set; }
+    }
 }

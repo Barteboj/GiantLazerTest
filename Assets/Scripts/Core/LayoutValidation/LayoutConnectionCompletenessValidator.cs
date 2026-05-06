@@ -1,30 +1,34 @@
 using System.Collections.Generic;
+using GiantLaserTest.Core.Ports;
 using UnityEngine;
 
-public class LayoutConnectionCompletenessValidator : MonoBehaviour, ILayoutValidator
+namespace GiantLaserTest.Core.LayoutValidation
 {
-    public ValidationResult Validate(LayoutState state)
+    public class LayoutConnectionCompletenessValidator : MonoBehaviour, ILayoutValidator
     {
-        var result = new ValidationResult();
-        var elementResults = new List<ElementValidationResult>();
-
-        foreach (var item in state.LibraryItems)
+        public ValidationResult Validate(LayoutState state)
         {
-            foreach (var port in item.Ports)
+            var result = new ValidationResult();
+            var elementResults = new List<ElementValidationResult>();
+
+            foreach (var item in state.LibraryItems)
             {
-                if (port.Type == PortType.Output && port.connectedPort == null)
+                foreach (var port in item.Ports)
                 {
-                    elementResults.Add(new ElementValidationResult
+                    if (port.Type == PortType.Output && port.connectedPort == null)
                     {
-                        RelatedItem = item,
-                        ResultType = ElementValidationResultType.Warning,
-                        Message = $"{item.ItemName} port {port.PortName} is not connected to any port"
-                    });
+                        elementResults.Add(new ElementValidationResult
+                        {
+                            RelatedItem = item,
+                            ResultType = ElementValidationResultType.Warning,
+                            Message = $"{item.ItemName} port {port.PortName} is not connected to any port"
+                        });
+                    }
                 }
             }
-        }
 
-        result.ElementResults = elementResults.ToArray();
-        return result;
+            result.ElementResults = elementResults.ToArray();
+            return result;
+        }
     }
 }
