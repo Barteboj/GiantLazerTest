@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -8,13 +9,13 @@ using UnityEngine.UI;
 public class LayoutValidationPanelController : MonoBehaviour
 {
     [SerializeField]
-    private Button checkLayoutButton;
+    private TMP_Dropdown evaluationModeDropdown;
     [SerializeField]
     private GameObject validationMessagePrefab;
     [SerializeField]
     private Transform validationMessagesContainer;
     [SerializeField, RequireInterface(typeof(ILayoutValidator))]
-    private Object[] layoutValidatorsReference;
+    private UnityEngine.Object[] layoutValidatorsReference;
     [SerializeField]
     private Material defaultMaterial;
     [SerializeField]
@@ -24,42 +25,75 @@ public class LayoutValidationPanelController : MonoBehaviour
     [SerializeField]
     private Material goodMaterial;
     private ILayoutValidator[] layoutValidators;
+    private EvaluationMode[] evaulationModes;
+    [SerializeField, RequireInterface(typeof(ILayoutValidationProcessController))]
+    private UnityEngine.Object layoutValidationProcessControllerReference;
+    [SerializeField, RequireInterface(typeof(IEvaluator))]
+    private UnityEngine.Object[] layoutEvaluatorsReference;
+
+    private ILayoutValidationProcessController layoutValidationProcessController;
+    private IEvaluator[] layoutEvaluators;
+    private IEvaluator activeEvaluator;
 
     private void Awake()
     {
+        layoutValidationProcessController = layoutValidationProcessControllerReference as ILayoutValidationProcessController;
         layoutValidators = layoutValidatorsReference.OfType<ILayoutValidator>().ToArray();
+        layoutEvaluators = layoutEvaluatorsReference.OfType<IEvaluator>().ToArray();
+        evaulationModes = Enum.GetValues(typeof(EvaluationMode)) as EvaluationMode[];
+        foreach (EvaluationMode mode in evaulationModes)
+        {
+            evaluationModeDropdown.options.Add(new TMP_Dropdown.OptionData(mode.ToString()));
+        }
+        evaluationModeDropdown.onValueChanged.AddListener(OnEvaluationModeChanged);
+        LoadEvaluationMode(evaluationModeDropdown.value);
+    }
+
+    private void OnEvaluationModeChanged(int arg0)
+    {
+        LoadEvaluationMode(arg0);
+    }
+
+    private void LoadEvaluationMode(int value)
+    {
+
+        activeEvaluator?.Deactivate();
+        DestroyCurrentMessages();
+
+        var items = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<ILibraryItem>());
+
+        foreach (var item in items)
+        {
+            item.Renderer.sharedMaterial = defaultMaterial;
+        }
+
+        var selectedMode = evaulationModes[value];
+        var evaluatorToActivate = layoutEvaluators.First(x => x.Mode == selectedMode);
+        evaluatorToActivate.Activate(layoutValidationProcessController);
+        activeEvaluator = evaluatorToActivate;
     }
 
     private void OnEnable()
     {
-        checkLayoutButton.onClick.AddListener(OnCheckLayoutClicked);
+        layoutValidationProcessController.OnValidationCompleted += OnValidationCompleted;
     }
 
     private void OnDisable()
     {
-        checkLayoutButton.onClick.RemoveListener(OnCheckLayoutClicked);
+        layoutValidationProcessController.OnValidationCompleted -= OnValidationCompleted;
+        activeEvaluator?.Deactivate();
     }
 
-    private void OnCheckLayoutClicked()
+    private void OnValidationCompleted(ValidationResult[] validationResults)
     {
-        int existingMessagesCount = validationMessagesContainer.childCount;
-
-        for (int i = existingMessagesCount - 1; i >= 0; i--)
-        {
-            Destroy(validationMessagesContainer.GetChild(i).gameObject);
-        }
-
+        DestroyCurrentMessages();
+        var items = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<ILibraryItem>());
         List<ILibraryItem> errorItems = new List<ILibraryItem>();
         List<ILibraryItem> warningItems = new List<ILibraryItem>();
-        var items = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<ILibraryItem>(true));
         bool anyWarnings = false;
         bool anyErrors = false;
-        List<ValidationResult> validationResults = new List<ValidationResult>();
-        LayoutState layoutState = new LayoutState { LibraryItems = items.ToArray() };
-        foreach (var validator in layoutValidators)
+        foreach (var result in validationResults)
         {
-            var result = validator.Validate(layoutState);
-            validationResults.Add(result);
             foreach (var elementResult in result.ElementResults)
             {
                 var item = elementResult.RelatedItem;
@@ -104,6 +138,16 @@ public class LayoutValidationPanelController : MonoBehaviour
                     item.Renderer.sharedMaterial = defaultMaterial;
                 }
             }
+        }
+    }
+
+    private void DestroyCurrentMessages()
+    {
+        int existingMessagesCount = validationMessagesContainer.childCount;
+
+        for (int i = existingMessagesCount - 1; i >= 0; i--)
+        {
+            Destroy(validationMessagesContainer.GetChild(i).gameObject);
         }
     }
 }

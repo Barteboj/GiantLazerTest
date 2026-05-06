@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LayoutSaveController : MonoBehaviour, ILayoutSaveController
 {
@@ -89,6 +90,13 @@ public class LayoutSaveController : MonoBehaviour, ILayoutSaveController
             catch (System.Exception e)
             {
                 Debug.LogError($"Error reading: {e.Message}");
+            }
+
+            var items = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<ILibraryItem>());
+
+            foreach (var item in items)
+            {
+                Destroy(item.GameObject);
             }
 
             List<LibraryItem> instantiatedItems = new List<LibraryItem>();

@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class LibraryItem : MonoBehaviour, ILibraryItem
 {
+    public static event Action OnLibraryItemCreated;
+    public static event Action OnLibraryItemDestroyed;
+
     [field: SerializeField]
     public LibraryItemType ItemType { get; private set; }
     [field: SerializeField]
@@ -19,4 +22,14 @@ public class LibraryItem : MonoBehaviour, ILibraryItem
     public Renderer Renderer { get; private set; }
 
     public GameObject GameObject => gameObject;
+
+    private void Awake()
+    {
+        OnLibraryItemCreated?.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        OnLibraryItemDestroyed?.Invoke();
+    }
 }

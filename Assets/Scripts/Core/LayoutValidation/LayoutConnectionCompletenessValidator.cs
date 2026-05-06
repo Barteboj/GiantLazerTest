@@ -18,7 +18,7 @@ public class LayoutConnectionCompletenessValidator : MonoBehaviour, ILayoutValid
                     {
                         RelatedItem = item,
                         ResultType = ElementValidationResultType.Warning,
-                        Message = $"Warning: {item.ItemName} port {port.PortName} is not connected to any port"
+                        Message = $"{item.ItemName} port {port.PortName} is not connected to any port"
                     });
                 }
             }
