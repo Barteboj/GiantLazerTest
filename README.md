@@ -23,3 +23,5 @@
   - Wprowadziłbym id do konkretncyh instancji elementów, żeby walidacja działała również gdy elementy danego typu się powtarzają
   - Nie wiedziałem do końca jak mieliście na myśli tę interakcję myszka + klawiatura. Jakbym miał więcej czasu to pewnie bym to co mam jeszcze przerobił na formę bardziej podobną do VR, np. zastosowałbym ThirdPersonController
   - Dodałbym fabrykę do tworzenia elementów biblioteki, bo teraz się trochę powtarza kod między panelem biblioteki i panelem wczytywania, bo w obu miejscach tworzymy elementy biblioteki (DRY). Może zrobiłbym do tego, że obiekty elementów biblioteki tworzą się na podstawie definicji w scriptable object zamiast prefabów, ale nie jestem pewien czy warto, bo jest wtedy mniejsza elastyczność, ale za to łatwiej by było komuś nieobeznanemu w Unity stworzyć nowe elementy
+5. Tipy
+  - Aby usunąć połączenie pomiędzy portami należy nacisnąć prawym przyciskiem myszy na jeden z dwóch połączonych portów.
