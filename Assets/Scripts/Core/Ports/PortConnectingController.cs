@@ -7,6 +7,8 @@ public class PortConnectingController : MonoBehaviour
 {
     [SerializeField]
     private InputActionReference portClickAction;
+    [SerializeField]
+    private DeskController deskController;
 
     private Port currentPort;
     [SerializeField]
@@ -14,15 +16,15 @@ public class PortConnectingController : MonoBehaviour
 
     private void OnEnable()
     {
-        portClickAction.action.performed += OnPortClicked;
+        portClickAction.action.performed += OnPortClickInputPerformed;
     }
 
     private void OnDisable()
     {
-        portClickAction.action.performed -= OnPortClicked;
+        portClickAction.action.performed -= OnPortClickInputPerformed;
     }
 
-    private void OnPortClicked(InputAction.CallbackContext context)
+    private void OnPortClickInputPerformed(InputAction.CallbackContext context)
     {
         Vector2 screenPos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
@@ -30,7 +32,7 @@ public class PortConnectingController : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Port selectedPort = hit.collider.GetComponent<Port>();
-            if (selectedPort != null && selectedPort.connectedPort == null)
+            if (selectedPort != null && selectedPort.connectedPort == null && deskController.LibraryItems.Contains(selectedPort.GetComponentInParent<ILibraryItem>()))
             {
                 if (currentPort != null && selectedPort.Type == PortType.Input)
                 {

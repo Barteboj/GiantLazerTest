@@ -10,6 +10,8 @@ public class LayoutValidationProcessController : MonoBehaviour, ILayoutValidatio
 
     [SerializeField, RequireInterface(typeof(ILayoutValidator))]
     private UnityEngine.Object[] layoutValidatorsReference;
+    [SerializeField]
+    private DeskController deskController;
 
     private ILayoutValidator[] layoutValidators;
 
@@ -20,9 +22,8 @@ public class LayoutValidationProcessController : MonoBehaviour, ILayoutValidatio
 
     public void ValidateLayout()
     {
-        var items = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<ILibraryItem>());
         List<ValidationResult> validationResults = new List<ValidationResult>();
-        LayoutState layoutState = new LayoutState { LibraryItems = items.ToArray() };
+        LayoutState layoutState = new LayoutState { LibraryItems = deskController.LibraryItems.ToArray() };
 
         foreach (var validator in layoutValidators)
         {

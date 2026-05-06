@@ -4,7 +4,7 @@ using UnityEngine;
 public class LibraryItem : MonoBehaviour, ILibraryItem
 {
     public static event Action OnLibraryItemCreated;
-    public static event Action OnLibraryItemDestroyed;
+    public static event Action<LibraryItem> OnLibraryItemDestroyed;
 
     [field: SerializeField]
     public LibraryItemType ItemType { get; private set; }
@@ -30,6 +30,6 @@ public class LibraryItem : MonoBehaviour, ILibraryItem
 
     private void OnDestroy()
     {
-        OnLibraryItemDestroyed?.Invoke();
+        OnLibraryItemDestroyed?.Invoke(this);
     }
 }

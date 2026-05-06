@@ -8,7 +8,7 @@ public class TestEvaluator : MonoBehaviour, IEvaluator
 
     [SerializeField]
     private Button evaluateButton;
-    
+
     private ILayoutValidationProcessController processController;
 
     public void Activate(ILayoutValidationProcessController processController)

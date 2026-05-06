@@ -11,6 +11,8 @@ public class LayoutSaveController : MonoBehaviour, ILayoutSaveController
     private LibraryItem[] libraryItemPrefabs;
     [SerializeField]
     private GameObject portsConnectionPrefab;
+    [SerializeField]
+    private DeskController deskController;
 
     private string saveFilePath;
 
@@ -22,7 +24,7 @@ public class LayoutSaveController : MonoBehaviour, ILayoutSaveController
     public void SaveLayout()
     {
         List<LibraryItemDTO> itemsToSave = new List<LibraryItemDTO>();
-        var items = FindObjectsByType<LibraryItem>(FindObjectsSortMode.None);
+        var items = deskController.LibraryItems;
 
         foreach (var item in items)
         {
@@ -53,7 +55,7 @@ public class LayoutSaveController : MonoBehaviour, ILayoutSaveController
             itemsToSave.Add(new LibraryItemDTO
             {
                 ItemType = item.ItemType,
-                Position = new SerializableVector3(item.transform.position),
+                Position = new SerializableVector3(item.GameObject.transform.position),
                 OutputPortsConnections = outputPortsConnections.ToArray()
             });
         }
@@ -113,6 +115,7 @@ public class LayoutSaveController : MonoBehaviour, ILayoutSaveController
                 if (prefab != null)
                 {
                     var newItem = Instantiate(prefab, itemDTO.Position.ToVector3(), Quaternion.identity);
+                    deskController.RegisterLibraryItem(newItem);
                     instantiatedItems.Add(newItem);
                 }
             }

@@ -13,6 +13,8 @@ public class LibraryPanelController : MonoBehaviour
     private GameObject[] libraryItemPrefabs;
     [SerializeField]
     private GameObject itemButtonPrefab;
+    [SerializeField]
+    private Transform spawnPoint;
 
     private LibraryCategory[] categories;
 
@@ -52,7 +54,7 @@ public class LibraryPanelController : MonoBehaviour
             if (libraryItem.Category == chosenCategory)
             {
                 var instantiated = Instantiate(itemButtonPrefab, itemListContainer).GetComponent<LibraryItemButtonController>();
-                instantiated.Initialize(libraryItem);
+                instantiated.Initialize(libraryItem, spawnPoint.position);
             }
         }
     }

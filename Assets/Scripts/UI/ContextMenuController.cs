@@ -12,6 +12,8 @@ public class ContextMenuController : MonoBehaviour
     [SerializeField]
     private Button deleteButton;
     [SerializeField]
+    private Button optionsCloseButton;
+    [SerializeField]
     private Button editCloseButton;
     [SerializeField]
     private GameObject optionsPanel;
@@ -30,6 +32,7 @@ public class ContextMenuController : MonoBehaviour
         editButton.onClick.AddListener(OnEditClicked);
         editCloseButton.onClick.AddListener(OnEditCloseClicked);
         deleteButton.onClick.AddListener(OnDeleteClicked);
+        optionsCloseButton.onClick.AddListener(OnOptionsCloseButtonClicked);
     }
 
     private void OnDisable()
@@ -38,6 +41,12 @@ public class ContextMenuController : MonoBehaviour
         editButton.onClick.RemoveListener(OnEditClicked);
         editCloseButton.onClick.RemoveListener(OnEditCloseClicked);
         deleteButton.onClick.RemoveListener(OnDeleteClicked);
+        optionsCloseButton.onClick.RemoveListener(OnOptionsCloseButtonClicked);
+    }
+
+    private void OnOptionsCloseButtonClicked()
+    {
+        optionsPanel.SetActive(false);
     }
 
     private void OnOpenInputActionPerformed(InputAction.CallbackContext context)

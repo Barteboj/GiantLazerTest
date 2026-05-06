@@ -12,6 +12,7 @@ public class LibraryItemButtonController : MonoBehaviour
     private Button button;
 
     private ILibraryItem itemPrefab;
+    private Vector3 spawnPosition;
 
     private void OnEnable()
     {
@@ -25,12 +26,13 @@ public class LibraryItemButtonController : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        Instantiate(itemPrefab.GameObject);
+        Instantiate(itemPrefab.GameObject, spawnPosition, Quaternion.identity);
     }
 
-    public void Initialize(ILibraryItem itemPrefab)
+    public void Initialize(ILibraryItem itemPrefab, Vector3 position)
     {
         this.itemPrefab = itemPrefab;
         DescriptionText.text = $"{this.itemPrefab.ItemName} {this.itemPrefab.Category}";
+        spawnPosition = position;
     }
 }

@@ -30,6 +30,8 @@ public class LayoutValidationPanelController : MonoBehaviour
     private UnityEngine.Object layoutValidationProcessControllerReference;
     [SerializeField, RequireInterface(typeof(IEvaluator))]
     private UnityEngine.Object[] layoutEvaluatorsReference;
+    [SerializeField]
+    private DeskController deskController;
 
     private ILayoutValidationProcessController layoutValidationProcessController;
     private IEvaluator[] layoutEvaluators;
@@ -46,6 +48,11 @@ public class LayoutValidationPanelController : MonoBehaviour
             evaluationModeDropdown.options.Add(new TMP_Dropdown.OptionData(mode.ToString()));
         }
         evaluationModeDropdown.onValueChanged.AddListener(OnEvaluationModeChanged);
+        layoutValidationProcessController.OnValidationCompleted += OnValidationCompleted;
+    }
+
+    private void Start()
+    {
         LoadEvaluationMode(evaluationModeDropdown.value);
     }
 
@@ -56,11 +63,9 @@ public class LayoutValidationPanelController : MonoBehaviour
 
     private void LoadEvaluationMode(int value)
     {
-
         activeEvaluator?.Deactivate();
         DestroyCurrentMessages();
-
-        var items = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<ILibraryItem>());
+        var items = deskController.LibraryItems;
 
         foreach (var item in items)
         {
@@ -73,12 +78,7 @@ public class LayoutValidationPanelController : MonoBehaviour
         activeEvaluator = evaluatorToActivate;
     }
 
-    private void OnEnable()
-    {
-        layoutValidationProcessController.OnValidationCompleted += OnValidationCompleted;
-    }
-
-    private void OnDisable()
+    private void OnApplicationQuit()
     {
         layoutValidationProcessController.OnValidationCompleted -= OnValidationCompleted;
         activeEvaluator?.Deactivate();
@@ -87,7 +87,7 @@ public class LayoutValidationPanelController : MonoBehaviour
     private void OnValidationCompleted(ValidationResult[] validationResults)
     {
         DestroyCurrentMessages();
-        var items = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<ILibraryItem>());
+        var items = deskController.LibraryItems;
         List<ILibraryItem> errorItems = new List<ILibraryItem>();
         List<ILibraryItem> warningItems = new List<ILibraryItem>();
         bool anyWarnings = false;

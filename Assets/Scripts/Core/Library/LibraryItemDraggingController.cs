@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class LibraryItemDraggingController : MonoBehaviour, IBeginDragHandler, IDragHandler
+public class LibraryItemDraggingController : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+    public static event Action<LibraryItemDraggingController> OnDraggingEnded;
+
     [SerializeField]
     private Transform draggedTransform;
 
@@ -29,5 +32,10 @@ public class LibraryItemDraggingController : MonoBehaviour, IBeginDragHandler, I
     {
         Vector3 screenPosWithZ = new Vector3(screenPosition.x, screenPosition.y, zCoord);
         return mainCamera.ScreenToWorldPoint(screenPosWithZ);
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        OnDraggingEnded?.Invoke(this);
     }
 }
