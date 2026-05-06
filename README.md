@@ -1,9 +1,12 @@
 ### 1. Instrukcja uruchomienia:
 *   **1.1 Edytor:**
+    *   pobierz wersję projektu z release tag Test
+    *   uruchom projekt za pomocą Unity 6.3.10f1
     *   wejdź na scenę StartMenu
     *   kliknij Play
 *   **1.2 Build:**
-    *   Projekt jest gotowy do buildownia na Windows. Wystarczy po prostu uruchomić buildowanie, a następnie uruchomić exe.
+    *   Pobierz build z release tag Test lub wykonaj build z dołączonej tam wersji projektu. Projekt jest gotowy do buildownia na Windows.
+    *   Uruchom plik .exe
 
 ### 2. Decyzje architektoniczne
 *   Stworzenie interfejsu **IEvaluator**, po to, żeby można było łatwo dodać nowe tryby oceny, ponieważ można się spodziewać nowych tym bardziej, że są już dwie (**OCP, DIP**)
