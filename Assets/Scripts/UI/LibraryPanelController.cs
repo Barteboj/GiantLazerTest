@@ -1,4 +1,5 @@
 using System;
+using GiantLaserTest.Attributes;
 using GiantLaserTest.Core.Library;
 using TMPro;
 using UnityEngine;
@@ -12,14 +13,20 @@ namespace GiantLaserTest.UI
         private TMP_Dropdown categoryDropdown;
         [SerializeField]
         private Transform itemListContainer;
-        [SerializeField]
-        private GameObject[] libraryItemPrefabs;
+        [SerializeField, RequireInterface(typeof(ILibraryItemPrefabsContainer))]
+        private UnityEngine.Object libraryItemPrefabsContainerReference;
         [SerializeField]
         private GameObject itemButtonPrefab;
         [SerializeField]
         private Transform spawnPoint;
 
         private LibraryCategory[] categories;
+        private ILibraryItemPrefabsContainer libraryItemPrefabsContainer;
+
+        private void Awake()
+        {
+            libraryItemPrefabsContainer = libraryItemPrefabsContainerReference as ILibraryItemPrefabsContainer;
+        }
 
         private void Start()
         {
@@ -53,7 +60,7 @@ namespace GiantLaserTest.UI
                 Destroy(child.gameObject);
             }
 
-            foreach (var itemPrefab in libraryItemPrefabs)
+            foreach (var itemPrefab in libraryItemPrefabsContainer.LibraryItemPrefabs)
             {
                 var libraryItem = itemPrefab.GetComponent<ILibraryItem>();
                 if (libraryItem.Category == chosenCategory)

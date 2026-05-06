@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 4693926250099886894}
   - component: {fileID: 1520673860454920664}
   m_Layer: 5
-  m_Name: InfoPanel
+  m_Name: EditPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 7727762834550595745}
   - component: {fileID: 5172169328096872126}
   m_Layer: 5
-  m_Name: Options
+  m_Name: OptionsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -442,7 +442,7 @@ GameObject:
   - component: {fileID: 1969421200633200408}
   - component: {fileID: 6880198366166070266}
   m_Layer: 5
-  m_Name: Button
+  m_Name: EditButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 3890364971506067850}
   - component: {fileID: 9171077164938510316}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -684,7 +684,7 @@ GameObject:
   - component: {fileID: 980337651292681727}
   - component: {fileID: 1551617595963217748}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1079,7 +1079,7 @@ GameObject:
   - component: {fileID: 2737927748899847132}
   - component: {fileID: 4543970128532432292}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: DeleteButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

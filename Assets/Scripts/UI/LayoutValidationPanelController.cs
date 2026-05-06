@@ -26,8 +26,6 @@ namespace GiantLaserTest.UI
         private UnityEngine.Object layoutValidationProcessControllerReference;
 
         [Header("Parameters")]
-        [SerializeField, RequireInterface(typeof(ILayoutValidator))]
-        private UnityEngine.Object[] layoutValidatorsReference;
         [SerializeField, RequireInterface(typeof(IEvaluator))]
         private UnityEngine.Object[] layoutEvaluatorsReference;
         [SerializeField]

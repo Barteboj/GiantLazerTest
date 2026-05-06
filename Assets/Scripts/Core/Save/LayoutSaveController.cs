@@ -16,7 +16,7 @@ namespace GiantLaserTest.Core.Save
         [SerializeField]
         private DeskController deskController;
         [SerializeField]
-        private LibraryItem[] libraryItemPrefabs;
+        private LibraryItemPrefabsContainerSO libraryItemPrefabsContainer;
         [SerializeField]
         private GameObject portsConnectionPrefab;
 
@@ -121,8 +121,8 @@ namespace GiantLaserTest.Core.Save
         {
             foreach (var itemDTO in itemsDTO)
             {
-                var prefab = libraryItemPrefabs.FirstOrDefault(p => p.ItemType == itemDTO.ItemType);
-                var newItem = Instantiate(prefab, itemDTO.Position.ToVector3(), Quaternion.identity);
+                var prefab = libraryItemPrefabsContainer.LibraryItemPrefabs.Find(p => p.GetComponent<LibraryItem>().ItemType == itemDTO.ItemType);
+                var newItem = Instantiate(prefab, itemDTO.Position.ToVector3(), Quaternion.identity).GetComponent<LibraryItem>();
                 deskController.RegisterLibraryItem(newItem);
                 instantiatedItems.Add(newItem);
             }

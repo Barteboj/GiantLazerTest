@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214b55f2f94749645859942e2c71f15f, type: 3}
+  m_Name: LibraryItemPrefabsContainerSO
+  m_EditorClassIdentifier: Core::LibraryItemPrefabsContainerSO
+  <LibraryItemPrefabs>k__BackingField:
+  - {fileID: 389958696873533703, guid: 7b1bcdd79e64ae04c970299589fd5ab6, type: 3}
+  - {fileID: 389958696873533703, guid: 8f5229a4ac35d1645bb603b893299702, type: 3}
+  - {fileID: 389958696873533703, guid: 1ec4c4327fafac54aaa70ade7c54e291, type: 3}
+  - {fileID: 389958696873533703, guid: 0042368db78a8bf43961f593deed23be, type: 3}
+  - {fileID: 389958696873533703, guid: 1e848d536f2178c49af9d1ee87409626, type: 3}
+  - {fileID: 389958696873533703, guid: f1d2930c957cfeb45babbaecd3d6e89e, type: 3}
