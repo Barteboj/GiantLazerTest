@@ -16,24 +16,26 @@ namespace GiantLaserTest.Core.Desk
         [Header("References")]
         [SerializeField]
         private LayerMask snapLayer;
+        [SerializeField]
+        private LibraryItemsDraggingController libraryItemsDraggingController;
 
         public List<ILibraryItem> LibraryItems { get; private set; } = new List<ILibraryItem>();
 
         private void OnEnable()
         {
-            LibraryItemDraggingController.OnDraggingEnded += OnLibraryItemDraggingEnded;
+            libraryItemsDraggingController.DraggingEnded += OnLibraryItemDraggingEnded;
             LibraryItem.ItemDestroyed += OnLibraryItemDestroyed;
         }
 
         private void OnDisable()
         {
-            LibraryItemDraggingController.OnDraggingEnded -= OnLibraryItemDraggingEnded;
+            libraryItemsDraggingController.DraggingEnded -= OnLibraryItemDraggingEnded;
             LibraryItem.ItemDestroyed -= OnLibraryItemDestroyed;
         }
 
-        private void OnLibraryItemDraggingEnded(LibraryItemDraggingController controller)
+        private void OnLibraryItemDraggingEnded(Transform draggedTransform)
         {
-            var libraryItem = controller.GetComponentInParent<LibraryItem>();
+            var libraryItem = draggedTransform.GetComponent<LibraryItem>();
 
             if (Physics.Raycast(libraryItem.transform.position, -transform.up, out RaycastHit hit, MaxSnappingDistance, snapLayer))
             {
@@ -55,8 +57,8 @@ namespace GiantLaserTest.Core.Desk
         {
             if (!LibraryItems.Contains(item))
             {
-                item.GetComponentInChildren<LibraryItemDraggingController>().enabled = false;
                 LibraryItems.Add(item);
+                item.LockInPlace();
                 OnLibraryItemAdded?.Invoke();
             }
         }

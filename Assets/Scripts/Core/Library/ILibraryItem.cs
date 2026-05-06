@@ -12,5 +12,6 @@ namespace GiantLaserTest.Core.Library
         List<Port> Ports { get; }
         GameObject GameObject { get; }
         Renderer Renderer { get; }
+        bool IsLockedInPlace { get; }
     }
 }

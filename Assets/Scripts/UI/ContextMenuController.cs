@@ -60,15 +60,12 @@ namespace GiantLaserTest.UI
 
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                if (hit.collider.GetComponent<LibraryItemDraggingController>() != null)
-                {
-                    ILibraryItem selectedItem = hit.collider.GetComponentInParent<ILibraryItem>();
+                var selectedItem = hit.transform.parent.GetComponent<ILibraryItem>();
 
-                    if (selectedItem != null)
-                    {
-                        Activate(selectedItem);
-                        transform.position = screenPos;
-                    }
+                if (selectedItem != null)
+                {
+                    Activate(selectedItem);
+                    transform.position = screenPos;
                 }
             }
         }

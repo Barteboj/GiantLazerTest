@@ -31,6 +31,7 @@ namespace GiantLaserTest.Core.Library
         private TextMeshPro itemNameText;
 
         public GameObject GameObject => gameObject;
+        public bool IsLockedInPlace { get; private set; }
 
         private void Awake()
         {
@@ -40,6 +41,11 @@ namespace GiantLaserTest.Core.Library
         private void OnDestroy()
         {
             ItemDestroyed?.Invoke(this);
+        }
+
+        public void LockInPlace()
+        {
+            IsLockedInPlace = true;
         }
     }
 }
