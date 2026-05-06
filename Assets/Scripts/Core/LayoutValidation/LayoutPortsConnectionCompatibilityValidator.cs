@@ -19,7 +19,8 @@ namespace GiantLaserTest.Core.LayoutValidation
                     {
                         if (!port.CompatibleItems.Contains(port.connectedPort.GetComponentInParent<ILibraryItem>().ItemType) && !port.CompatibleCategories.Contains(port.connectedPort.GetComponentInParent<ILibraryItem>().Category))
                         {
-                            result.ElementResults.Add(new ElementValidationResult(ElementValidationResultType.Error, $"Port {port.PortName} cannot be connected to {port.connectedPort.GetComponentInParent<ILibraryItem>().ItemName}", item));
+                            ILibraryItem connectedItem = port.connectedPort.GetComponentInParent<ILibraryItem>();
+                            result.ElementResults.Add(new ElementValidationResult(ElementValidationResultType.Error, $"{item.ItemName} Port {port.PortName} cannot be connected to {connectedItem.ItemName}", item));
                         }
                     }
                 }
