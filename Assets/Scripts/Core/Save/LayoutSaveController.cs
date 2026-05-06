@@ -99,6 +99,13 @@ public class LayoutSaveController : MonoBehaviour, ILayoutSaveController
                 Destroy(item.GameObject);
             }
 
+            var portsConnections = SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<PortConnectionController>());
+
+            foreach (var connection in portsConnections)
+            {
+                Destroy(connection.gameObject);
+            }
+
             List<LibraryItem> instantiatedItems = new List<LibraryItem>();
             foreach (var itemDTO in itemsDTO)
             {
