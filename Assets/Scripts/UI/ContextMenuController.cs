@@ -81,9 +81,23 @@ namespace GiantLaserTest.UI
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.AppendLine($"Name: {contextItem.ItemName}");
             stringBuilder.AppendLine($"Ports status:");
+
             foreach (var port in contextItem.Ports)
             {
-                stringBuilder.AppendLine($"{port.PortName} {(port.Type == PortType.Output ? "->" : "<-")} {port.connectedPort?.PortName ?? "None"}");
+                var connectedPort = port.connectedPort;
+                string connectedPortInfo;
+
+                if (connectedPort == null)
+                {
+                    connectedPortInfo = "None";
+                }
+                else
+                {
+                    var connectedItem = connectedPort.GetComponentInParent<ILibraryItem>();
+                    connectedPortInfo = $"{connectedItem.ItemName} {connectedPort.PortName}";
+                }
+
+                stringBuilder.AppendLine($"{port.PortName} {(port.Type == PortType.Output ? "->" : "<-")} {connectedPortInfo}");
             }
 
             editDescription.text = stringBuilder.ToString();
