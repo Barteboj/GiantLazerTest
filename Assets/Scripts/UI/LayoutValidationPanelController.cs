@@ -25,7 +25,7 @@ public class LayoutValidationPanelController : MonoBehaviour
     [SerializeField]
     private Material goodMaterial;
     private ILayoutValidator[] layoutValidators;
-    private EvaluationMode[] evaulationModes;
+    private EvaluationMode[] evaluationModes;
     [SerializeField, RequireInterface(typeof(ILayoutValidationProcessController))]
     private UnityEngine.Object layoutValidationProcessControllerReference;
     [SerializeField, RequireInterface(typeof(IEvaluator))]
@@ -42,8 +42,8 @@ public class LayoutValidationPanelController : MonoBehaviour
         layoutValidationProcessController = layoutValidationProcessControllerReference as ILayoutValidationProcessController;
         layoutValidators = layoutValidatorsReference.OfType<ILayoutValidator>().ToArray();
         layoutEvaluators = layoutEvaluatorsReference.OfType<IEvaluator>().ToArray();
-        evaulationModes = Enum.GetValues(typeof(EvaluationMode)) as EvaluationMode[];
-        foreach (EvaluationMode mode in evaulationModes)
+        evaluationModes = Enum.GetValues(typeof(EvaluationMode)) as EvaluationMode[];
+        foreach (EvaluationMode mode in evaluationModes)
         {
             evaluationModeDropdown.options.Add(new TMP_Dropdown.OptionData(mode.ToString()));
         }
@@ -53,7 +53,9 @@ public class LayoutValidationPanelController : MonoBehaviour
 
     private void Start()
     {
-        LoadEvaluationMode(evaluationModeDropdown.value);
+        int modeIndex = Array.IndexOf(evaluationModes, GameController.Instance.StartingEvaluationMode);
+        evaluationModeDropdown.value = modeIndex;
+        LoadEvaluationMode(modeIndex);
     }
 
     private void OnEvaluationModeChanged(int arg0)
@@ -72,7 +74,7 @@ public class LayoutValidationPanelController : MonoBehaviour
             item.Renderer.sharedMaterial = defaultMaterial;
         }
 
-        var selectedMode = evaulationModes[value];
+        var selectedMode = evaluationModes[value];
         var evaluatorToActivate = layoutEvaluators.First(x => x.Mode == selectedMode);
         evaluatorToActivate.Activate(layoutValidationProcessController);
         activeEvaluator = evaluatorToActivate;
