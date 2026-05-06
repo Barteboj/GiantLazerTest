@@ -105,58 +105,5 @@ public class LayoutValidationPanelController : MonoBehaviour
                 }
             }
         }
-
-
-        // foreach (var item in items)
-        // {
-        //     bool hasWarning = false;
-        //     bool hasError = false;
-        //     foreach (var port in item.Ports)
-        //     {
-        //         if (port.Type == PortType.Output)
-        //         {
-        //             if (port.connectedPort != null)
-        //             {
-        //                 if (!port.CompatibleItems.Contains(port.connectedPort.GetComponentInParent<ILibraryItem>().ItemType) && !port.CompatibleCategories.Contains(port.connectedPort.GetComponentInParent<ILibraryItem>().Category))
-        //                 {
-        //                     Instantiate(validationMessagePrefab, validationMessagesContainer).GetComponentInChildren<TextMeshProUGUI>().text = $"Error: {item.ItemName} port {port.PortName} cannot be connected to {port.connectedPort.GetComponentInParent<LibraryItem>().ItemName}";
-        //                     errorItems.Add(item);
-        //                     hasError = true;
-        //                 }
-        //             }
-        //             else
-        //             {
-        //                 Instantiate(validationMessagePrefab, validationMessagesContainer).GetComponentInChildren<TextMeshProUGUI>().text = $"Warning: {item.ItemName} port {port.PortName} is not connected to any port";
-        //                 warningItems.Add(item);
-        //                 hasWarning = true;
-        //             }
-        //         }
-        //     }
-
-        //     if (hasError)
-        //     {
-        //         item.Renderer.sharedMaterial = errorMaterial;
-        //         anyErrors = true;
-        //     }
-        //     else if (hasWarning)
-        //     {
-        //         item.Renderer.sharedMaterial = warningMaterial;
-        //         anyWarnings = true;
-        //     }
-        //     else
-        //     {
-        //         item.Renderer.sharedMaterial = defaultMaterial;
-        //     }
-        // }
-
-        // if (!anyErrors && !anyWarnings)
-        // {
-        //     Instantiate(validationMessagePrefab, validationMessagesContainer).GetComponentInChildren<TextMeshProUGUI>().text = "Validation successful";
-
-        //     foreach (var item in items)
-        //     {
-        //         item.Renderer.sharedMaterial = goodMaterial;
-        //     }
-        // }
     }
 }
