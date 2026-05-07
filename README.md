@@ -5,7 +5,7 @@
     *   wejdź na scenę StartMenu
     *   kliknij Play
 *   **1.2 Build:**
-    *   Pobierz build z release tag Test lub wykonaj build z dołączonej tam wersji projektu. Projekt jest gotowy do buildownia na Windows.
+    *   Pobierz build z release tag Test
     *   Uruchom plik .exe
 
 ### 2. Decyzje architektoniczne
