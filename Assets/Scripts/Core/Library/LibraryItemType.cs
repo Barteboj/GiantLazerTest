@@ -7,6 +7,7 @@ namespace GiantLaserTest.Core.Library
         InitialFilter = 2,
         Mixer = 3,
         Heater = 4,
-        Packager = 5
+        Packager = 5,
+        Finalizer = 6
     }
 }
